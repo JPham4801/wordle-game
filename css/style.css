@@ -8,29 +8,62 @@ body {
     width: 100%;
 }
 
-header {
-    display: flex;
+header{
     padding: 12px;
+    display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
+    justify-content: space-between;
+    font-size: 14px;
 }
 
 header img {
     width: 32px;
     height: 32px;
-    display: flex;
-    justify-content: flex-end;
 }
 
-main{
+main {
     width: 100%;
     display: flex;
+    justify-content: center;
     flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.board-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.letter-tile {
+    border: 2px solid black;
+    height: 58px;
+    width: 58px;
+    margin: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+}
+
+.keyboard-section {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.letter-container {
+.keyboard-btn {
+    height: 56px;
+    width: 42px;
+    margin: 2px 0;
+}
 
+#backspace-btn {
+    width: 69px;
+}
+
+#enter-btn {
+    width: 76px;
 }
