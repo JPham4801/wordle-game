@@ -14,18 +14,18 @@
 // As a user, I want the option to play again at any given time to start over with a new word
 
 /*-------------------------------- Constants --------------------------------*/
-const words = ['test', 'four', 'help', 'play', 'fork', 'time', 'ball']
+const words = ['drive', 'seven', 'hover', 'plate', 'clock', 'given', 'label']
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-let userChoice;
-let gameChoice = ['t', 'e', 's', 't'];
+let userWord = [];
+let winningWord = ['d', 'r', 'i', 'v', 'e'];
 let winner;
 let currentRow;
 
 
 /*------------------------ Cached Element References ------------------------*/
-const letterTile = document.querySelectorAll('.letter-tile');
+const letterEl = document.querySelectorAll('.letter-tile');
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -35,19 +35,31 @@ const init = () =>{
 }
 
 const handleClick = (event) =>{
-    if(event.target.className === 'keyboard-btn'){
-        console.log(event.target.innerText);
+    if(event.target.id === 'back-btn' ){
+        userWord.pop();
+        let letter = '';
+        let letterIdx = userWord.length;
+
+        updateTiles(letter, letterIdx)
+        console.log(userWord);
+    } else if(event.target.className === 'keyboard-btn' && userWord.length < winningWord.length){
+        userWord.push(event.target.innerText);
+        let letter = event.target.innerText;
+        let letterIdx = userWord.length - 1;
+
+        updateTiles(letter, letterIdx)
+        console.log(userWord);
     }
 }
 
-const updateTile = () =>{
-    if(winner === false){
-        
+const updateTiles = (letter, idx) =>{
+    if(winner === false && userWord.length <= winningWord.length){
+        let rowEl = document.querySelector(`#row-${currentRow}`);
+        rowEl.querySelector(`#tile-${idx}`).innerText = letter;
     }
 }
 
 init();
-
 
 /*----------------------------- Event Listeners -----------------------------*/
 document.querySelector('.keyboard-section').addEventListener('click', handleClick);
