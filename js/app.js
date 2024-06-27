@@ -19,13 +19,13 @@ const words = ['drive', 'seven', 'hover', 'plate', 'clock', 'given', 'label']
 
 /*---------------------------- Variables (state) ----------------------------*/
 let userWord = [];
-let winningWord = ['d', 'r', 'i', 'v', 'e'];
+let winningWord = ['w', 'o', 'r', 'd', 's'];
 let winner;
 let currentRow;
 
 
 /*------------------------ Cached Element References ------------------------*/
-const inputEl = document.querySelectorAll('.input-tile');
+const inputEl = document.querySelectorAll('.input-tile')
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -34,40 +34,32 @@ const init = () =>{
     currentRow = 0;
 }
 
-const clickHandler = (event) =>{
+const inputHandler = (event) =>{
+    //prevents default focus submission after clicking button then a keyboard input
+    if(event.target.className === 'keyboard-btn'){
+        event.target.blur()
+    }
+
+    //input handling conditions with code execution
     if(event.target.id === 'backspace-btn' || event.key === 'Backspace'){
-        backspaceHandler();
+        backspaceHandler()
     } else if(event.target.id === 'enter-btn' || event.key === 'Enter'){
-        event.preventDefault();
-        console.log('click event: enter');
-    } else if(event.target.className === 'keyboard-btn' && userWord.length < winningWord.length){
-        userWord.push(event.target.innerText); // onscreen keyboard clicks
-        let input = event.target.innerText;
-        let idx = userWord.length - 1;
+        event.preventDefault()
+    } else if(event.target.className === 'keyboard-btn' && userWord.length < winningWord.length){   //on-screen keyboard clicks
+        userWord.push(event.target.innerText) // onscreen keyboard clicks
+        let input = event.target.innerText
+        let idx = userWord.length - 1
 
         updateTiles(input, idx)
-        console.log(userWord);
-    }
-}
-
-const keyboardHandler = (event) =>{
-    if(event.key === 'Backspace'){
-        backspaceHandler();
-    } else if(event.key === 'Enter'){
-        event.preventDefault();
-        console.log('keyboard event: enter');
-    } else if(
-        userWord.length < winningWord.length &&     //limit to number of letters in word
-        event.key.length === 1 &&
-        event.key.match(/[a-zA-Z]/)     //only letters A-Z are used, uppercase and lowercase
+    } else if(                          //keyboard keypresses
+        userWord.length < winningWord.length &&     //prevents going over word limit
+        event.key.length === 1 &&       //only 1 letter keyboard inputs (prevents 'Enter', 'Backspace', etc.)
+        event.key.match(/[a-zA-Z]/)      //only letters A-Z are used, uppercase and lowercase
     ){
         userWord.push(event.key.toUpperCase())
-        let input = event.key;
-        let idx = userWord.length - 1;
-
-        updateTiles(input, idx);
-        console.log(userWord);
-        console.log(event.key);
+        let input = event.key
+        let idx = userWord.length - 1
+        updateTiles(input, idx)
     }
 }
 
@@ -75,20 +67,29 @@ const backspaceHandler = () =>{
         userWord.pop()      //removes last letter from array
         let input = ''
         let idx = userWord.length
-
         updateTiles(input, idx)
 }
 
 
 const updateTiles = (input, idx) =>{
     if(winner === false && userWord.length <= winningWord.length){
-        let rowEl = document.querySelector(`#row-${currentRow}`);   // row selector
-        rowEl.querySelector(`#tile-${idx}`).innerText = input.toUpperCase();  //display in current tile
+        let rowEl = document.querySelector(`#row-${currentRow}`)   // row selector
+        rowEl.querySelector(`#tile-${idx}`).innerText = input.toUpperCase()  //display in current tile
     }
 }
 
 init();
 
 /*----------------------------- Event Listeners -----------------------------*/
-document.querySelector('.keyboard-section').addEventListener('click', clickHandler);
-document.addEventListener('keydown', clickHandler)
+document.querySelector('.keyboard-section').addEventListener('click', inputHandler); //listens for on-screen keyboard button clicks
+document.addEventListener('keydown', inputHandler)  //listens for keyboard keypress
+
+
+
+
+// test area ------------------------------------------------------------------
+// const testFunc = (event) =>{
+//     console.dir(event)
+// }
+
+// document.addEventListener('keydown', testFunc)
