@@ -14,78 +14,88 @@
 // As a user, I want the option to play again at any given time to start over with a new word
 
 /*-------------------------------- Constants --------------------------------*/
-const words = ['drive', 'seven', 'hover', 'plate', 'clock', 'given', 'label']
-
+const words = ["drive", "seven", "hover", "plate", "clock", "given", "label"];
 
 /*---------------------------- Variables (state) ----------------------------*/
-let userWord = [];
-let winningWord = ['w', 'o', 'r', 'd', 's'];
+let playerWord = [];
+let winningWord = ["w", "o", "r", "d", "s"];
 let winner;
 let currentRow;
 
-
 /*------------------------ Cached Element References ------------------------*/
-const inputEl = document.querySelectorAll('.input-tile')
-
+const inputEl = document.querySelectorAll(".input-tile");
 
 /*-------------------------------- Functions --------------------------------*/
-const init = () =>{
+const init = () => {
     winner = false;
     currentRow = 0;
-}
+};
 
-const inputHandler = (event) =>{
-    //prevents default focus submission after clicking button then a keyboard input
-    if(event.target.className === 'keyboard-btn'){
-        event.target.blur()
+const inputHandler = (event) => {
+    //prevents default submission (focus) on button after clicking a button and then a keyboard key
+    if (event.target.className === "keyboard-btn") {
+        event.target.blur(); 
     }
 
     //input handling conditions with code execution
-    if(event.target.id === 'backspace-btn' || event.key === 'Backspace'){
-        backspaceHandler()
-    } else if(event.target.id === 'enter-btn' || event.key === 'Enter'){
-        event.preventDefault()
-    } else if(event.target.className === 'keyboard-btn' && userWord.length < winningWord.length){   //on-screen keyboard clicks
-        userWord.push(event.target.innerText) // onscreen keyboard clicks
-        let input = event.target.innerText
-        let idx = userWord.length - 1
-
-        updateTiles(input, idx)
-    } else if(                          //keyboard keypresses
-        userWord.length < winningWord.length &&     //prevents going over word limit
-        event.key.length === 1 &&       //only 1 letter keyboard inputs (prevents 'Enter', 'Backspace', etc.)
-        event.key.match(/[a-zA-Z]/)      //only letters A-Z are used, uppercase and lowercase
-    ){
-        userWord.push(event.key.toUpperCase())
-        let input = event.key
-        let idx = userWord.length - 1
-        updateTiles(input, idx)
+    if (event.target.id === "backspace-btn" || event.key === "Backspace") {
+        backspaceHandler();
+    } else if (event.target.id === "enter-btn" || event.key === "Enter") {
+        event.preventDefault();
+        eval(playerWord, winningWord);
+    } else if (
+        //on-screen keyboard clicks
+        event.target.className === "keyboard-btn" &&
+        playerWord.length < winningWord.length
+    ) {
+        playerWord.push(event.target.innerText); // onscreen keyboard clicks
+        let input = event.target.innerText;
+        let idx = playerWord.length - 1;
+        updateTiles(input, idx);
+    } else if (
+        //keyboard keypress
+        playerWord.length < winningWord.length && //prevents going over word limit
+        event.key.length === 1 && //only 1 letter keyboard inputs (prevents 'Enter', 'Backspace', etc.)
+        event.key.match(/[a-zA-Z]/) //only letters A-Z are used, uppercase and lowercase
+    ) {
+        playerWord.push(event.key.toUpperCase());
+        let input = event.key;
+        let idx = playerWord.length - 1;
+        updateTiles(input, idx);
     }
-}
+};
 
-const backspaceHandler = () =>{
-        userWord.pop()      //removes last letter from array
-        let input = ''
-        let idx = userWord.length
-        updateTiles(input, idx)
-}
+const backspaceHandler = () => {
+    playerWord.pop(); //removes last letter from array
+    let input = "";
+    let idx = playerWord.length;
+    updateTiles(input, idx);
+};
 
+const updateTiles = (input, idx) => {
+    if (winner === false && playerWord.length <= winningWord.length) {
+        let rowEl = document.querySelector(`#row-${currentRow}`); // row selector
+        rowEl.querySelector(`#tile-${idx}`).innerText = input.toUpperCase(); //display in current tile
 
-const updateTiles = (input, idx) =>{
-    if(winner === false && userWord.length <= winningWord.length){
-        let rowEl = document.querySelector(`#row-${currentRow}`)   // row selector
-        rowEl.querySelector(`#tile-${idx}`).innerText = input.toUpperCase()  //display in current tile
+        console.log(playerWord);
     }
-}
+};
+
+const eval = (playerLetter, correctLetter) => {
+    if(playerWord.length !== winningWord.length){
+        return
+    } else{
+        playerLetter.forEach((element, index) => {
+            console.log(`Player: [${element}] Correct: [${correctLetter[index].toUpperCase()}]`);
+        });
+    }
+};
 
 init();
 
 /*----------------------------- Event Listeners -----------------------------*/
-document.querySelector('.keyboard-section').addEventListener('click', inputHandler); //listens for on-screen keyboard button clicks
-document.addEventListener('keydown', inputHandler)  //listens for keyboard keypress
-
-
-
+document.querySelector(".keyboard-section").addEventListener("click", inputHandler) //listens for on-screen keyboard button clicks
+document.addEventListener("keydown", inputHandler) //listens for keyboard keypress
 
 // test area ------------------------------------------------------------------
 // const testFunc = (event) =>{
