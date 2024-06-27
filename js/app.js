@@ -5,8 +5,8 @@
 // As a user, I want to hit enter or click the enter button so that I can validate my word.
 // As a user, I want a visual representation of how many chances I have left.
 // As a user, I want my tiles to perform an animation when I submit my word choice.
-// As a user, I want the letters tiles to be highlighted green, yellow, or grey so that I know which letters are in the the correct place, wrong place, or not used at all respectively.
-// As a user, I want letters that I have previously used to be null and cannot be reused.
+// As a user, I want the inputs tiles to be highlighted green, yellow, or grey so that I know which inputs are in the the correct place, wrong place, or not used at all respectively.
+// As a user, I want inputs that I have previously used to be null and cannot be reused.
 // As a user, I want word validation so that I cannot use a word not on the list.
 // As a user, I want the game to end when I entered the correct answer.
 // As a user, I want a word reveal when I have not guessed the correct word in the set amount of tries.
@@ -25,7 +25,7 @@ let currentRow;
 
 
 /*------------------------ Cached Element References ------------------------*/
-const letterEl = document.querySelectorAll('.letter-tile');
+const inputEl = document.querySelectorAll('.input-tile');
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -34,32 +34,61 @@ const init = () =>{
     currentRow = 0;
 }
 
-const handleClick = (event) =>{
-    if(event.target.id === 'back-btn' ){
-        userWord.pop();
-        let letter = '';
-        let letterIdx = userWord.length;
-
-        updateTiles(letter, letterIdx)
-        console.log(userWord);
+const clickHandler = (event) =>{
+    if(event.target.id === 'backspace-btn' || event.key === 'Backspace'){
+        backspaceHandler();
+    } else if(event.target.id === 'enter-btn' || event.key === 'Enter'){
+        event.preventDefault();
+        console.log('click event: enter');
     } else if(event.target.className === 'keyboard-btn' && userWord.length < winningWord.length){
-        userWord.push(event.target.innerText);
-        let letter = event.target.innerText;
-        let letterIdx = userWord.length - 1;
+        userWord.push(event.target.innerText); // onscreen keyboard clicks
+        let input = event.target.innerText;
+        let idx = userWord.length - 1;
 
-        updateTiles(letter, letterIdx)
+        updateTiles(input, idx)
         console.log(userWord);
     }
 }
 
-const updateTiles = (letter, idx) =>{
+const keyboardHandler = (event) =>{
+    if(event.key === 'Backspace'){
+        backspaceHandler();
+    } else if(event.key === 'Enter'){
+        event.preventDefault();
+        console.log('keyboard event: enter');
+    } else if(
+        userWord.length < winningWord.length &&     //limit to number of letters in word
+        event.key.length === 1 &&
+        event.key.match(/[a-zA-Z]/)     //only letters A-Z are used, uppercase and lowercase
+    ){
+        userWord.push(event.key.toUpperCase())
+        let input = event.key;
+        let idx = userWord.length - 1;
+
+        updateTiles(input, idx);
+        console.log(userWord);
+        console.log(event.key);
+    }
+}
+
+const backspaceHandler = () =>{
+        userWord.pop()      //removes last letter from array
+        let input = ''
+        let idx = userWord.length
+
+        updateTiles(input, idx)
+}
+
+
+const updateTiles = (input, idx) =>{
     if(winner === false && userWord.length <= winningWord.length){
-        let rowEl = document.querySelector(`#row-${currentRow}`);
-        rowEl.querySelector(`#tile-${idx}`).innerText = letter;
+        let rowEl = document.querySelector(`#row-${currentRow}`);   // row selector
+        rowEl.querySelector(`#tile-${idx}`).innerText = input.toUpperCase();  //display in current tile
     }
 }
 
 init();
 
 /*----------------------------- Event Listeners -----------------------------*/
-document.querySelector('.keyboard-section').addEventListener('click', handleClick);
+document.querySelector('.keyboard-section').addEventListener('click', clickHandler);
+document.addEventListener('keydown', clickHandler)

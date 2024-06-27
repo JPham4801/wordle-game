@@ -60,7 +60,12 @@ main {
     margin: 2px 0;
 }
 
-#back-btn {
+.keyboard-btn:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+#backspace-btn {
     width: 69px;
 }
 
