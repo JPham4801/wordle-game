@@ -26,7 +26,8 @@
 //  - button in modal to select
 
 /*-------------------------------- Constants --------------------------------*/
-// const words = ["drive", "seven", "hover", "plate", "clock", "given", "label"];
+
+
 /*---------------------------- Variables (state) ----------------------------*/
 let round;
 let gameIsOver;
@@ -35,6 +36,10 @@ let winningWord;
 
 /*------------------------ Cached Element References ------------------------*/
 const inputEl = document.querySelectorAll(".input-tile");
+const modal = document.getElementById('myModal');
+const btn = document.getElementById('myBtn');
+const span = document.getElementsByClassName('close')[0];
+
 const titleEl = document.querySelector(".header"); //! remove in final product
 
 /*-------------------------------- Functions --------------------------------*/
@@ -71,7 +76,8 @@ const inputHandler = (event) => {
         return;
     } else if (
         event.target.id === "backspace-btn" ||
-        event.key === "Backspace"
+        event.key === "Backspace" &&
+        event.target.className === 'back'
     ) {
         backspaceHandler();
     } else if (event.target.id === "enter-btn" || event.key === "Enter") {
@@ -108,7 +114,7 @@ const backspaceHandler = () => {
 };
 
 const updateTiles = (input, idx) => {
-    if (gameIsOver === false && playerWord.length <= winningWord.length) {
+    if (playerWord.length <= winningWord.length && gameIsOver === false) {
         let rowEl = document.querySelector(`#row-${round}`); // row selector
         rowEl.querySelector(`#row-${round}-tile-${idx}`).innerText =
             input.toUpperCase(); // display in current tile
@@ -167,7 +173,7 @@ const eval = (playerLetter, correctLetter) => {
     }
     round = round + 1;
     playerWord = [];
-    console.log(`-------Test for round ${round}-------`);
+    console.log(`--Test for round ${round}--`);
 };
 
 const checkForWinner = (event) => {
@@ -179,6 +185,22 @@ const checkForWinner = (event) => {
         gameIsOver = true;
     }
 };
+
+// modal functions
+
+btn.onclick = () =>{
+    modal.style.display = 'block'
+}
+
+span.onclick = () =>{
+    modal.style.display = 'none';
+}
+
+window.onclick = (event) =>{
+    if (event.target === modal){
+        modal.style.display = 'none'
+    }
+}
 
 init();
 
