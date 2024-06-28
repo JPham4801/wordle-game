@@ -4,8 +4,16 @@
     box-sizing: border-box;
 }
 
+html {
+    color-scheme: dark;
+}
+
 body {
     width: 100%;
+    /* temp */
+    background-color: #272624;
+    /* temp */
+    color: #FFFFFF;
 }
 
 header{
@@ -38,10 +46,15 @@ main {
 }
 
 .letter-tile {
+    /* #538D4E for correct position and position*/
+    /* #B59F3B for correct word but wrong position */
+    /* #58585A for all incorrect*/
     border: 2px solid black;
     height: 58px;
     width: 58px;
     margin: 1px;
+    /* temp */
+    border-color: #B4A68F;
     display: flex;
     justify-content: center;
     align-items: center;

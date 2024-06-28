@@ -1,0 +1,1 @@
+const words = ["drive", "seven", "hover", "plate", "clock", "given", "label"];
