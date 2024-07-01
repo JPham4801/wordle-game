@@ -1,160 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Wordle: Categories</title>
-        <link rel="stylesheet" href="./css/style.css" />
-        <script defer src="./js/app.js"></script>
-        <script src="./js/words.js"></script>
-    </head>
-    <body>
-        <header>
-            <!-- heading -->
-            <h1 class="header">Wordle: Categories</h1>
-            <img
-                class="info-box"
-                id="myBtn"
-                src="./resources/info-icon.svg"
-                alt="icon of infobox"
-            />
-        </header>
-        <main>
-            <!-- modal -->
-            <div class="modal" id="myModal">
-                <div class="modal-content">
-                    <div class="modal-wrapper">
-                        <button type="button" class="close">
-                            <svg
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                width="20"
-                                class="game-icon"
-                                data-testid="icon-close"
-                            >
-                                <path
-                                    fill="#FFFFFF"
-                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                                ></path>
-                            </svg>
-                        </button>
-                        <h2 class="modal-header">How To Play</h2>
-                        <h3 class="modal-sub-header">
-                            Guess the word in 6 tries
-                        </h3>
-                        <div class="how-to-section">
-                            <ul class="instructions">
-                                <li>
-                                    Each guess must be a valid 5-letter word
-                                </li>
-                                <li>
-                                    Each guess must be a valid 5-letter word
-                                </li>
-                            </ul>
-                            <div class="instructions">Example section:</div>
-                            <div>
-                                <div class="board-container" id="row-0">
-                                    <div class="example-tile" id="example-tile-0"></div>
-                                    <div class="example-tile" id="example-tile-1"></div>
-                                    <div class="example-tile" id="example-tile-2"></div>
-                                    <div class="example-tile" id="example-tile-3"></div>
-                                    <div class="example-tile" id="example-tile-4"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="category-section instructions">
-                                Select different category here
-                            </div>
-                        </div>
-                    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wordle: Categories</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script defer src="./js/app.js"></script>
+    <script src="./js/words.js"></script>
+  </head>
+  <body>
+    <header>
+      <!-- heading -->
+      <h1 class="header">Wordle: Categories</h1>
+      <img
+        class="info-box"
+        id="myBtn"
+        src="./resources/info-icon.svg"
+        alt="icon of infobox"
+      />
+    </header>
+    <main>
+      <!-- modal start-->
+      <div class="modal" id="myModal">
+        <div class="modal-content">
+          <div class="modal-wrapper">
+            <button type="button" class="close">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
+                class="game-icon"
+                data-testid="icon-close"
+              >
+                <path
+                  fill="#FFFFFF"
+                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                ></path>
+              </svg>
+            </button>
+            <h2 class="modal-header">How To Play</h2>
+            <h3 class="modal-sub-header">Guess the word in 6 tries</h3>
+            <div class="how-to-section">
+              <ul class="modal-base how-to-list">
+                <li>Each guess must be a valid 5-letter word</li>
+                <li>
+                  The color of the tiles will change to show how close your
+                  guess was to the word.
+                </li>
+              </ul>
+              <div class="modal-base">Examples:</div>
+              <div>
+                <div class="board-container example-board">
+                  <div class="example-tile" style="background-color: #538d4e">
+                    W
+                  </div>
+                  <div class="example-tile">O</div>
+                  <div class="example-tile">R</div>
+                  <div class="example-tile">D</div>
+                  <div class="example-tile">S</div>
                 </div>
+                <p>W is in the word and in the correct spot.</p>
+              </div>
+              <div>
+                <div class="board-container example-board">
+                  <div class="example-tile">T</div>
+                  <div class="example-tile" style="background-color: #b59f3b">
+                    I
+                  </div>
+                  <div class="example-tile">L</div>
+                  <div class="example-tile">E</div>
+                  <div class="example-tile">S</div>
+                </div>
+                <p>I is in the word but in the wrong spot.</p>
+              </div>
+              <div>
+                <div class="board-container example-board">
+                  <div class="example-tile">R</div>
+                  <div class="example-tile">O</div>
+                  <div class="example-tile">G</div>
+                  <div class="example-tile" style="background-color: #58585a">
+                    U
+                  </div>
+                  <div class="example-tile">E</div>
+                </div>
+                <p>U is not in the word in any spot.</p>
+              </div>
             </div>
-            <div>
-                <div class="board-container" id="row-0">
-                    <div class="letter-tile" id="row-0-tile-0"></div>
-                    <div class="letter-tile" id="row-0-tile-1"></div>
-                    <div class="letter-tile" id="row-0-tile-2"></div>
-                    <div class="letter-tile" id="row-0-tile-3"></div>
-                    <div class="letter-tile" id="row-0-tile-4"></div>
-                </div>
-                <div class="board-container" id="row-1">
-                    <div class="letter-tile" id="row-1-tile-0"></div>
-                    <div class="letter-tile" id="row-1-tile-1"></div>
-                    <div class="letter-tile" id="row-1-tile-2"></div>
-                    <div class="letter-tile" id="row-1-tile-3"></div>
-                    <div class="letter-tile" id="row-1-tile-4"></div>
-                </div>
-                <div class="board-container" id="row-2">
-                    <div class="letter-tile" id="row-2-tile-0"></div>
-                    <div class="letter-tile" id="row-2-tile-1"></div>
-                    <div class="letter-tile" id="row-2-tile-2"></div>
-                    <div class="letter-tile" id="row-2-tile-3"></div>
-                    <div class="letter-tile" id="row-2-tile-4"></div>
-                </div>
-                <div class="board-container" id="row-3">
-                    <div class="letter-tile" id="row-3-tile-0"></div>
-                    <div class="letter-tile" id="row-3-tile-1"></div>
-                    <div class="letter-tile" id="row-3-tile-2"></div>
-                    <div class="letter-tile" id="row-3-tile-3"></div>
-                    <div class="letter-tile" id="row-3-tile-4"></div>
-                </div>
-                <div class="board-container" id="row-4">
-                    <div class="letter-tile" id="row-4-tile-0"></div>
-                    <div class="letter-tile" id="row-4-tile-1"></div>
-                    <div class="letter-tile" id="row-4-tile-2"></div>
-                    <div class="letter-tile" id="row-4-tile-3"></div>
-                    <div class="letter-tile" id="row-4-tile-4"></div>
-                </div>
-                <div class="board-container" id="row-5">
-                    <div class="letter-tile" id="row-5-tile-0"></div>
-                    <div class="letter-tile" id="row-5-tile-1"></div>
-                    <div class="letter-tile" id="row-5-tile-2"></div>
-                    <div class="letter-tile" id="row-5-tile-3"></div>
-                    <div class="letter-tile" id="row-5-tile-4"></div>
-                </div>
-            </div>
-        </main>
-        <div class="keyboard-section">
-            <div class="keyboard-row">
-                <button type="button" class="keyboard-btn" key="q">Q</button>
-                <button type="button" class="keyboard-btn" key="w">W</button>
-                <button type="button" class="keyboard-btn" key="e">E</button>
-                <button type="button" class="keyboard-btn" key="r">R</button>
-                <button type="button" class="keyboard-btn" key="t">T</button>
-                <button type="button" class="keyboard-btn" key="y">Y</button>
-                <button type="button" class="keyboard-btn" key="u">U</button>
-                <button type="button" class="keyboard-btn" key="i">I</button>
-                <button type="button" class="keyboard-btn" key="o">O</button>
-                <button type="button" class="keyboard-btn" key="p">P</button>
-            </div>
-            <div class="keyboard-row">
-                <button type="button" class="keyboard-btn" key="a">A</button>
-                <button type="button" class="keyboard-btn" key="s">S</button>
-                <button type="button" class="keyboard-btn" key="d">D</button>
-                <button type="button" class="keyboard-btn" key="f">F</button>
-                <button type="button" class="keyboard-btn" key="g">G</button>
-                <button type="button" class="keyboard-btn" key="h">H</button>
-                <button type="button" class="keyboard-btn" key="j">J</button>
-                <button type="button" class="keyboard-btn" key="k">K</button>
-                <button type="button" class="keyboard-btn" key="l">L</button>
-            </div>
-            <div class="keyboard-row">
-                <button type="button" class="keyboard-btn" id="backspace-btn">
-                    BACK
-                </button>
-                <button type="button" class="keyboard-btn" key="z">Z</button>
-                <button type="button" class="keyboard-btn" key="x">X</button>
-                <button type="button" class="keyboard-btn" key="c">C</button>
-                <button type="button" class="keyboard-btn" key="v">V</button>
-                <button type="button" class="keyboard-btn" key="b">B</button>
-                <button type="button" class="keyboard-btn" key="n">N</button>
-                <button type="button" class="keyboard-btn" key="m">M</button>
-                <button type="button" class="keyboard-btn" id="enter-btn">
-                    ENTER
-                </button>
-            </div>
+          </div>
         </div>
-    </body>
+      </div>
+      <!-- modal end -->
+      <!-- on-load board area start -->
+      <div>
+        <div class="board-container" id="row-0">
+          <div class="letter-tile" id="row-0-tile-0"></div>
+          <div class="letter-tile" id="row-0-tile-1"></div>
+          <div class="letter-tile" id="row-0-tile-2"></div>
+          <div class="letter-tile" id="row-0-tile-3"></div>
+          <div class="letter-tile" id="row-0-tile-4"></div>
+        </div>
+        <div class="board-container" id="row-1">
+          <div class="letter-tile" id="row-1-tile-0"></div>
+          <div class="letter-tile" id="row-1-tile-1"></div>
+          <div class="letter-tile" id="row-1-tile-2"></div>
+          <div class="letter-tile" id="row-1-tile-3"></div>
+          <div class="letter-tile" id="row-1-tile-4"></div>
+        </div>
+        <div class="board-container" id="row-2">
+          <div class="letter-tile" id="row-2-tile-0"></div>
+          <div class="letter-tile" id="row-2-tile-1"></div>
+          <div class="letter-tile" id="row-2-tile-2"></div>
+          <div class="letter-tile" id="row-2-tile-3"></div>
+          <div class="letter-tile" id="row-2-tile-4"></div>
+        </div>
+        <div class="board-container" id="row-3">
+          <div class="letter-tile" id="row-3-tile-0"></div>
+          <div class="letter-tile" id="row-3-tile-1"></div>
+          <div class="letter-tile" id="row-3-tile-2"></div>
+          <div class="letter-tile" id="row-3-tile-3"></div>
+          <div class="letter-tile" id="row-3-tile-4"></div>
+        </div>
+        <div class="board-container" id="row-4">
+          <div class="letter-tile" id="row-4-tile-0"></div>
+          <div class="letter-tile" id="row-4-tile-1"></div>
+          <div class="letter-tile" id="row-4-tile-2"></div>
+          <div class="letter-tile" id="row-4-tile-3"></div>
+          <div class="letter-tile" id="row-4-tile-4"></div>
+        </div>
+        <div class="board-container" id="row-5">
+          <div class="letter-tile" id="row-5-tile-0"></div>
+          <div class="letter-tile" id="row-5-tile-1"></div>
+          <div class="letter-tile" id="row-5-tile-2"></div>
+          <div class="letter-tile" id="row-5-tile-3"></div>
+          <div class="letter-tile" id="row-5-tile-4"></div>
+        </div>
+      </div>
+      <!-- on-load board area end -->
+    </main>
+    <!-- on-screen keyboard start -->
+    <div class="keyboard-section">
+      <div class="keyboard-row">
+        <button type="button" class="keyboard-btn" key="q">Q</button>
+        <button type="button" class="keyboard-btn" key="w">W</button>
+        <button type="button" class="keyboard-btn" key="e">E</button>
+        <button type="button" class="keyboard-btn" key="r">R</button>
+        <button type="button" class="keyboard-btn" key="t">T</button>
+        <button type="button" class="keyboard-btn" key="y">Y</button>
+        <button type="button" class="keyboard-btn" key="u">U</button>
+        <button type="button" class="keyboard-btn" key="i">I</button>
+        <button type="button" class="keyboard-btn" key="o">O</button>
+        <button type="button" class="keyboard-btn" key="p">P</button>
+      </div>
+      <div class="keyboard-row">
+        <button type="button" class="keyboard-btn" key="a">A</button>
+        <button type="button" class="keyboard-btn" key="s">S</button>
+        <button type="button" class="keyboard-btn" key="d">D</button>
+        <button type="button" class="keyboard-btn" key="f">F</button>
+        <button type="button" class="keyboard-btn" key="g">G</button>
+        <button type="button" class="keyboard-btn" key="h">H</button>
+        <button type="button" class="keyboard-btn" key="j">J</button>
+        <button type="button" class="keyboard-btn" key="k">K</button>
+        <button type="button" class="keyboard-btn" key="l">L</button>
+      </div>
+      <div class="keyboard-row">
+        <button type="button" class="keyboard-btn" id="backspace-btn">
+          BACK
+        </button>
+        <button type="button" class="keyboard-btn" key="z">Z</button>
+        <button type="button" class="keyboard-btn" key="x">X</button>
+        <button type="button" class="keyboard-btn" key="c">C</button>
+        <button type="button" class="keyboard-btn" key="v">V</button>
+        <button type="button" class="keyboard-btn" key="b">B</button>
+        <button type="button" class="keyboard-btn" key="n">N</button>
+        <button type="button" class="keyboard-btn" key="m">M</button>
+        <button type="button" class="keyboard-btn" id="enter-btn">ENTER</button>
+      </div>
+    </div>
+    <!-- on-screen keyboard end -->
+  </body>
 </html>

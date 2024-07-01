@@ -45,7 +45,6 @@ const titleEl = document.querySelector(".header"); //! remove in final product
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
     let randomNum = Math.floor(Math.random() * words.length);
-    console.log(randomNum, words[randomNum]);
 
     playerWord = [];
     gameIsOver = false;
@@ -122,11 +121,6 @@ const updateTiles = (input, idx) => {
 };
 
 const eval = (playerLetter, correctLetter) => {
-    // uppercase the correct word to match player's word
-    correctLetter.forEach((element, idx) => {
-        correctLetter[idx] = element.toUpperCase();
-    });
-
     if (playerWord.length !== winningWord.length) {
         // prevents submission if word isn't filled
         return;
@@ -136,9 +130,6 @@ const eval = (playerLetter, correctLetter) => {
         playerLetter.forEach((element, index) => {
             if (element === correctLetter[index]) {
                 // (Green tile) letter exist and in right place
-                console.log(
-                    `CORRECT @ ${index} Pl: [${element}] Ans: [${correctLetter[index]}]`
-                );
                 let greenTile = document.getElementById(
                     `row-${round}-tile-${index}`
                 );
@@ -150,18 +141,12 @@ const eval = (playerLetter, correctLetter) => {
                 element !== correctLetter[index]
             ) {
                 // (Yellow tile) letter exist and in wrong place
-                console.log(
-                    `MISPLACE @ ${index} Pl: [${element}] Ans: [${correctLetter[index]}]`
-                );
                 let yellowTile = document.getElementById(
                     `row-${round}-tile-${index}`
                 );
                 yellowTile.style.backgroundColor = "#B59F3B";
             } else if (!correctLetter.includes(element)) {
                 // (Gray tile) letter does not exist anywhere
-                console.log(
-                    `WRONG @ ${index} Pl: [${element}] Ans: [${correctLetter[index]}]`
-                );
                 let grayTile = document.getElementById(
                     `row-${round}-tile-${index}`
                 );
