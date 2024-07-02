@@ -16,6 +16,7 @@
 //! ---------- STRETCH GOALS ----------
 // refactor the '.toUpperCase' throughout code (possibly not needed after implmenting arrays)
 // (Yellow tiles) if letter is in the right place but does not exist anywhere else, make those tiles false (maybe forEach method)
+// refactor css (especially the modal section)
 
 //todo
 // dynamically make tiles once random word is chose to equal the word length
@@ -27,170 +28,176 @@
 
 /*-------------------------------- Constants --------------------------------*/
 
-
 /*---------------------------- Variables (state) ----------------------------*/
 let round;
 let gameIsOver;
 let playerWord;
+let category;
+let validWords;
 let winningWord;
 
 /*------------------------ Cached Element References ------------------------*/
-const inputEl = document.querySelectorAll(".input-tile");
+const inputEl = document.querySelectorAll('.input-tile');
 const modal = document.getElementById('myModal');
 const btn = document.getElementById('myBtn');
 const span = document.getElementsByClassName('close')[0];
 
-const titleEl = document.querySelector(".header"); //! remove in final product
+const titleEl = document.querySelector('.header'); //! remove in final product
 
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
-    let randomNum = Math.floor(Math.random() * words.length);
+  let randomNum = Math.floor(Math.random() * words.length);
 
-    playerWord = [];
-    gameIsOver = false;
-    round = 0; // round starts at 0 not 1
-    winningWord = words[randomNum].toUpperCase().split(""); // splits word into letters into an array
+  round = 0; // round starts at 0 not 1
+  gameIsOver = false;
+  playerWord = [];
+  category = words;
+  validWords = wordList;
+  winningWord = words[randomNum].toUpperCase().split(''); // splits word into letters into an array
+  console.log(winningWord);
 
-    //! remove in final product START
-    titleEl.innerHTML = `Wordle: Categories <br><br>For testing: <br>Word is ${words[
-        randomNum
-    ].toUpperCase()}`;
-    //! remove in final product END
+  //! remove in final product START
+  titleEl.innerHTML = `Wordle: Categories <br><br>For testing: <br>Word is ${words[
+    randomNum
+  ].toUpperCase()}`;
+  //! remove in final product END
 };
 
-const generateTiles = () => {};
+const generateTiles = () =>{
+  
+}
 
 const inputHandler = (event) => {
-    // prevents default submission (focus) when clicking a button and then a keyboard key
-    if (event.target.className === "keyboard-btn") {
-        event.target.blur();
-    }
-
-    // handling of both keyboard inputs and on-screen keyboard clicks
-    if (
-        gameIsOver === true ||
-        event.target.className === "keyboard-section" ||
-        event.target.className === "keyboard-row"
-    ) {
-        return;
-    } else if (
-        event.target.id === "backspace-btn" ||
-        event.key === "Backspace" &&
-        event.target.className === 'back'
-    ) {
-        backspaceHandler();
-    } else if (event.target.id === "enter-btn" || event.key === "Enter") {
-        event.preventDefault();
-        console.log(playerWord);
-        eval(playerWord, winningWord);
-    } else if (
-        // on-screen keyboard clicks
-        event.target.className === "keyboard-btn" &&
-        playerWord.length < winningWord.length
-    ) {
-        playerWord.push(event.target.innerText); // onscreen keyboard clicks
-        let input = event.target.innerText;
-        let idx = playerWord.length - 1;
-        updateTiles(input, idx);
-    } else if (
-        // keyboard keypress
-        playerWord.length < winningWord.length && // prevents going over word limit
-        event.key.length === 1 && // only 1 letter keyboard inputs (prevents 'Enter', 'Backspace', etc.)
-        event.key.match(/[a-zA-Z]/) // only letters A-Z are used, uppercase and lowercase
-    ) {
-        playerWord.push(event.key.toUpperCase());
-        let input = event.key;
-        let idx = playerWord.length - 1;
-        updateTiles(input, idx);
-    }
+  // prevents default submission (focus) when clicking a button and then a keyboard key
+  if (event.target.className === 'keyboard-btn') {
+    event.target.blur();
+  }
+  // handling of both keyboard inputs and on-screen keyboard clicks
+  if (
+    gameIsOver === true ||
+    event.target.className === 'keyboard-section' ||
+    event.target.className === 'keyboard-row'
+  ) {
+    return;
+  } else if (event.target.id === 'backspace-btn' || event.key === 'Backspace') {
+    backspaceHandler();
+  } else if (event.target.id === 'enter-btn' || event.key === 'Enter') {
+    event.preventDefault();
+    console.log(playerWord);
+    isValidWord(playerWord, winningWord);
+  } else if (
+    // on-screen keyboard clicks
+    event.target.className === 'keyboard-btn' &&
+    playerWord.length < winningWord.length
+  ) {
+    playerWord.push(event.target.innerText); // onscreen keyboard clicks
+    let input = event.target.innerText;
+    let idx = playerWord.length - 1;
+    updateTiles(input, idx);
+  } else if (
+    // keyboard keypress
+    playerWord.length < winningWord.length && // prevents going over word limit
+    event.key.length === 1 && // only 1 letter keyboard inputs (prevents 'Enter', 'Backspace', etc.)
+    event.key.match(/[a-zA-Z]/) // only letters A-Z are used, uppercase and lowercase
+  ) {
+    playerWord.push(event.key.toUpperCase());
+    let input = event.key;
+    let idx = playerWord.length - 1;
+    updateTiles(input, idx);
+  }
 };
 
 const backspaceHandler = () => {
-    playerWord.pop(); // removes last letter from array
-    let input = "";
-    let idx = playerWord.length;
-    updateTiles(input, idx);
+  playerWord.pop(); // removes last letter from array
+  let input = '';
+  let idx = playerWord.length;
+  updateTiles(input, idx);
 };
 
 const updateTiles = (input, idx) => {
-    if (playerWord.length <= winningWord.length && gameIsOver === false) {
-        let rowEl = document.querySelector(`#row-${round}`); // row selector
-        rowEl.querySelector(`#row-${round}-tile-${idx}`).innerText =
-            input.toUpperCase(); // display in current tile
-    }
+  if (playerWord.length <= winningWord.length && gameIsOver === false) {
+    let rowEl = document.querySelector(`#row-${round}`); // row selector
+    rowEl.querySelector(`#row-${round}-tile-${idx}`).innerText =
+      input.toUpperCase(); // display in current tile
+  }
+};
+
+const isValidWord = () => {
+  console.log(category);
+  if (playerWord.length !== winningWord.length) {
+    // prevents submission if word isn't filled
+    return;
+  } else if(!category.includes(playerWord.join(''))){
+    console.log('Not in word list!');
+    return;
+  } else if(category.includes(playerWord.join(''))){
+    console.log('match!');
+    eval(playerWord, winningWord)
+  }
 };
 
 const eval = (playerLetter, correctLetter) => {
-    if (playerWord.length !== winningWord.length) {
-        // prevents submission if word isn't filled
-        return;
-    } else {
-        let numCorrect = 0;
+  let numCorrect = 0;
 
-        playerLetter.forEach((element, index) => {
-            if (element === correctLetter[index]) {
-                // (Green tile) letter exist and in right place
-                let greenTile = document.getElementById(
-                    `row-${round}-tile-${index}`
-                );
-                greenTile.style.backgroundColor = "#538D4E";
+  playerLetter.forEach((element, index) => {
+    if (element === correctLetter[index]) {
+      // (Green tile) letter exist and in right place
+      let greenTile = document.getElementById(`row-${round}-tile-${index}`);
+      greenTile.style.backgroundColor = '#498047';
 
-                numCorrect = numCorrect + 1;
-            } else if (
-                correctLetter.includes(element) &&
-                element !== correctLetter[index]
-            ) {
-                // (Yellow tile) letter exist and in wrong place
-                let yellowTile = document.getElementById(
-                    `row-${round}-tile-${index}`
-                );
-                yellowTile.style.backgroundColor = "#B59F3B";
-            } else if (!correctLetter.includes(element)) {
-                // (Gray tile) letter does not exist anywhere
-                let grayTile = document.getElementById(
-                    `row-${round}-tile-${index}`
-                );
-                grayTile.style.backgroundColor = "#58585A";
-            }
-        });
-        console.log(`round ${round} correct ${numCorrect}`);
-        checkForWinner(numCorrect);
+      numCorrect = numCorrect + 1;
+    } else if (
+      correctLetter.includes(element) &&
+      element !== correctLetter[index]
+    ) {
+      // (Yellow tile) letter exist and in wrong place
+      let yellowTile = document.getElementById(`row-${round}-tile-${index}`);
+      yellowTile.style.backgroundColor = '#84732A';
+    } else if (!correctLetter.includes(element)) {
+      // (Gray tile) letter does not exist anywhere
+      let grayTile = document.getElementById(`row-${round}-tile-${index}`);
+      grayTile.style.backgroundColor = '#727274';
     }
-    round = round + 1;
-    playerWord = [];
-    console.log(`--Test for round ${round}--`);
+  });
+
+  console.log(`round ${round} correct ${numCorrect}`);
+  checkForWinner(numCorrect);
+
+  round = round + 1;
+  playerWord = [];
+  console.log(`--Test for round ${round}--`);
 };
 
 const checkForWinner = (event) => {
-    if (event === winningWord.length && round < 6) {
-        console.log("Winner!");
-        gameIsOver = true;
-    } else if (gameIsOver === false && round === 5) {
-        console.log("loser!");
-        gameIsOver = true;
-    }
+  if (event === winningWord.length && round < 6) {
+    console.log('Winner!');
+    gameIsOver = true;
+  } else if (gameIsOver === false && round === 5) {
+    console.log('loser!');
+    gameIsOver = true;
+  }
 };
 
 // modal functions
 
-btn.onclick = () =>{
-    modal.style.display = 'block'
-}
+btn.onclick = () => {
+  modal.style.display = 'block';
+};
 
-span.onclick = () =>{
+span.onclick = () => {
+  modal.style.display = 'none';
+};
+
+window.onclick = (event) => {
+  if (event.target === modal) {
     modal.style.display = 'none';
-}
-
-window.onclick = (event) =>{
-    if (event.target === modal){
-        modal.style.display = 'none'
-    }
-}
+  }
+};
 
 init();
 
 /*----------------------------- Event Listeners -----------------------------*/
 document
-    .querySelector(".keyboard-section")
-    .addEventListener("click", inputHandler); // listens for on-screen keyboard button clicks
-document.addEventListener("keydown", inputHandler); // listens for keyboard keypress
+  .querySelector('.keyboard-section')
+  .addEventListener('click', inputHandler); // listens for on-screen keyboard button clicks
+document.addEventListener('keydown', inputHandler); // listens for keyboard keypress

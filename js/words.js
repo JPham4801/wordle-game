@@ -1,1 +1,1 @@
-const words = ["drive", "seven", "hover", "plate", "clock", "given", "label"];
+const words = ["DRIVE", "SEVEN", "HOVER", "PLATE", "CLOCK", "GIVEN", "LABEL"];

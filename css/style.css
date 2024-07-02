@@ -14,6 +14,9 @@ body {
   background-color: #272624;
   /* temp */
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 header {
@@ -41,8 +44,7 @@ main {
 
 /* modal styling start */
 .modal {
-  /* uncomment display to view modal on-load*/
-  /* display: none; */
+  display: none;  /* ! set to block for display on-load */
   position: fixed;
   justify-content: center;
   align-items: center;
@@ -119,7 +121,6 @@ main {
 
 .example-board {
   justify-content: flex-start;
-  /* margin-top: 12px; */
 }
 
 /* modal close icon */
@@ -144,6 +145,21 @@ main {
 }
 
 /* modal styling end */
+
+.board-area {
+  width: 100%;
+}
+
+.invalid-prompt {
+  display: none; /* todo set to block for display on-load  */
+  position: absolute;
+  align-self: center;
+  top: 120px;
+  border: 1px solid gray;
+  background-color: gray;
+  border-radius: 12px;
+  padding: 12px;
+}
 
 .letter-tile {
   /* #538D4E for correct position and position*/
