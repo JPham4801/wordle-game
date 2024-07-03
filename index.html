@@ -8,22 +8,26 @@
     <script defer src="./js/app.js"></script>
     <script src="./js/words.js"></script>
     <script src="./js/pokemon.js"></script>
-    <script src="./js/wordlist.js"></script>
+    <script src="./js/wordList.js"></script>
+    <script src="./js/fruitsAndVegetables.js"></script>
   </head>
   <body>
     <header>
       <!-- heading -->
       <h1 class="header">Wordle: Categories</h1>
-      <img
-        class="info-box"
-        id="myBtn"
-        src="./resources/info-icon.svg"
-        alt="icon of infobox"
-      />
+      <div>
+        <img
+          class="info-box"
+          id="myBtn"
+          src="./resources/info-icon.svg"
+          alt="icon of infobox"
+        />
+        <button type="button" class="select-category-btn">Select New Category</button>
+      </div>
     </header>
     <main>
-      <!-- modal start-->
-      <div class="modal" id="myModal">
+      <!-- how-to modal start-->
+      <div class="modal" id="how-to-modal">
         <div class="modal-content">
           <div class="modal-wrapper">
             <button type="button" class="close">
@@ -33,7 +37,7 @@
                 height="20"
                 viewBox="0 0 24 24"
                 width="20"
-                class="game-icon"
+                class="info-icon"
                 data-testid="icon-close"
               >
                 <path
@@ -46,7 +50,7 @@
             <h3 class="modal-sub-header">Guess the word in 6 tries</h3>
             <div class="how-to-section">
               <ul class="modal-base how-to-list">
-                <li>Each guess must be a valid 5-letter word</li>
+                <li>Each guess must be a valid word in the category.</li>
                 <li>
                   The color of the tiles will change to show how close your
                   guess was to the word.
@@ -93,7 +97,7 @@
           </div>
         </div>
       </div>
-      <!-- modal end -->
+      <!-- how-to modal end -->
       <!-- on-load board area start -->
       <div class="board-area">
         <div class="board-container" id="row-0">

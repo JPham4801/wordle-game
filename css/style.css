@@ -20,16 +20,24 @@ body {
 }
 
 header {
-  padding: 12px;
+  padding: 20px;
+  padding-bottom: 11px;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  font-size: 14px;
+  align-items: center;
+  font-size: 18px;
+  border-bottom: 1px solid;
+  margin-bottom: 24px;
 }
 
 header img {
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
+}
+
+header div {
+  display: flex;
+  gap: 10px;
 }
 
 main {
@@ -42,7 +50,7 @@ main {
   margin-bottom: 24px;
 }
 
-/* modal styling start */
+/* how-to modal styling start */
 .modal {
   display: none;  /* ! set to block for display on-load */
   position: fixed;
@@ -124,7 +132,7 @@ main {
 }
 
 /* modal close icon */
-.game-icon {
+.info-icon {
   width: 100%;
   height: 100%;
 }
@@ -144,8 +152,18 @@ main {
   cursor: pointer;
 }
 
-/* modal styling end */
+/* how-to modal styling end */
+/* category btn styling start */
 
+.select-category-btn {
+  background-color:#538d4e;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 18px;
+}
+
+/* category btn styling end */
 .board-area {
   width: 100%;
 }

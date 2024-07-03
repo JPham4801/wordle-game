@@ -27,6 +27,8 @@
 //  - button in modal to select
 // change modal cached element ref names
 
+//!reminder   Wordle = words, wordList    Pokemon = pokemons, pokemons
+
 /*-------------------------------- Constants --------------------------------*/
 
 /*---------------------------- Variables (state) ----------------------------*/
@@ -39,7 +41,7 @@ let winningWord;
 
 /*------------------------ Cached Element References ------------------------*/
 const inputEl = document.querySelectorAll('.input-tile');
-const modal = document.getElementById('myModal');
+const modal = document.getElementById('how-to-modal');
 const btn = document.getElementById('myBtn');
 const span = document.getElementsByClassName('close')[0];
 const board = document.querySelector('.board-area');
@@ -58,7 +60,7 @@ const init = () => {
   winningWord = words[randomNum].toUpperCase().split(''); // splits word into letters into an array
 
   //! remove in final product START
-  titleEl.innerHTML = `Wordle: Categories <br><br>For testing: <br>Word is ${words[
+  titleEl.innerHTML = `Wordle: Categories For Testing: ${words[
     randomNum
   ].toUpperCase()}`;
   //! remove in final product END
@@ -86,7 +88,7 @@ const generateTiles = () => {
 };
 
 const inputHandler = (event) => {
-  // prevents default submission (focus) when clicking a button and then a keyboard key
+  // prevents default button highlighting (focus)
   if (event.target.className === 'keyboard-btn') {
     event.target.blur();
   }
@@ -100,8 +102,7 @@ const inputHandler = (event) => {
   } else if (event.target.id === 'backspace-btn' || event.key === 'Backspace') {
     backspaceHandler();
   } else if (event.target.id === 'enter-btn' || event.key === 'Enter') {
-    event.preventDefault();
-    console.log(playerWord);
+    event.preventDefault(); // prevents default submission (focus)
     isValidWord(playerWord, winningWord);
   } else if (
     // on-screen keyboard clicks
@@ -145,11 +146,13 @@ const isValidWord = () => {
   if (playerWord.length !== winningWord.length) {
     // prevents submission if word isn't filled
     return;
-  } else if (!category.includes(playerWord.join(''))) {
+  } else if (!validWords.includes(playerWord.join(''))) {
     console.log('Not in word list!');
     return;
-  } else if (category.includes(playerWord.join(''))) {
+  } else if (validWords.includes(playerWord.join(''))) {
     console.log('match!');
+    console.log(playerWord);
+    console.log(winningWord);
     eval(playerWord, winningWord);
   }
 };
