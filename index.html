@@ -8,11 +8,11 @@
     <script defer src="./js/app.js"></script>
     <script src="./js/words.js"></script>
     <script src="./js/pokemon.js"></script>
+    <script src="./js/fruitsAndVegetables.js"></script>
     <script src="./js/wordlist.js"></script>
   </head>
   <body>
     <header>
-      <!-- heading -->
       <h1 class="header">Wordle: Categories</h1>
       <div>
         <img
@@ -21,13 +21,13 @@
           src="./resources/info-icon.svg"
           alt="icon of infobox"
         />
-        <button type="button" class="select-category-btn" id="select-category-btn">
+        <button type="button" class="category-btn" id="select-category-btn">
           Select New Category
         </button>
       </div>
     </header>
     <main>
-      <!-- !temp below -->
+      <!-- category modal -->
       <div class="select-category-modal" id="select-category-modal">
         <div class="modal-content">
           <button type="button" class="close" id="close-categories-modal">
@@ -46,10 +46,15 @@
               ></path>
             </svg>
           </button>
+          <h2 class="modal-header">Select a Category</h2>
+          <div class="category-btn-wrapper">
+            <button type="button" class="category-btn" id="wordle">Original Wordle</button>
+            <button type="button" class="category-btn" id="pokemon">Pokemon</button>
+            <button type="button" class="category-btn" id="fruitsAndVegetables">Fruits & Vegetables</button>
+          </div>
         </div>
       </div>
-      <!-- !temp above -->
-      <!-- modal start-->
+      <!-- how to modal start -->
       <div class="how-to-modal" id="how-to-modal">
         <div class="modal-content">
           <button type="button" class="close" id="close-how-to-modal">
@@ -94,7 +99,7 @@
             <div>
               <div class="board-container example-board">
                 <div class="example-tile">T</div>
-                <div class="example-tile" style="background-color: #b59f3b">
+                <div class="example-tile" style="background-color: #84732a">
                   I
                 </div>
                 <div class="example-tile">L</div>
@@ -118,7 +123,7 @@
           </div>
         </div>
       </div>
-      <!-- modal end -->
+      <!-- how to modal end -->
       <!-- on-load board area start -->
       <div class="board-area">
         <div class="board-container" id="row-0">

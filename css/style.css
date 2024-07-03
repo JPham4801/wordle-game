@@ -51,6 +51,19 @@ main {
 }
 
 /* modal styling start */
+.modal-content {
+  position: relative;
+  background-color: #2c2c2e;
+  color: #ffffff;
+  margin: 8% auto; /* 8% from the top and always centered */
+  padding: 48px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  border-color: #3d3939;
+  max-width: 510px;
+  width: 90%;
+}
+
 .select-category-modal, .how-to-modal {
   display: none;  /* ! set to block for display on-load */
   position: fixed;
@@ -66,24 +79,18 @@ main {
 }
 
 
-
-.modal-content {
-  position: relative;
-  background-color: #2c2c2e;
-  color: #ffffff;
-  margin: 10% auto; /* 10% from the top and always centered */
-  padding: 48px;
-  border: 1px solid #888;
-  border-radius: 8px;
-  border-color: #3d3939;
-  max-width: 520px;
-  width: 90%;
+.select-category-modal .modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 620px;
 }
 
 .modal-header {
   font-size: 28px;
   font-weight: bold;
-  margin: 28px 0 2px 0;
+  margin: 28px 0 1px 0;
 }
 
 .modal-base {
@@ -96,7 +103,7 @@ main {
   position: relative;
 }
 
-.how-to-section > * {
+.how-to-section > *, .category-btn-wrapper {
   margin-top: 20px;
 }
 
@@ -152,12 +159,13 @@ main {
 /* how-to modal styling end */
 /* category btn styling start */
 
-.select-category-btn {
-  background-color: #538d4e;
+.category-btn {
+  background-color: #498047;
   border: none;
   border-radius: 12px;
   padding: 12px;
   font-size: 18px;
+  margin: 0 2px;
 }
 
 /* category btn styling end */
@@ -177,18 +185,15 @@ main {
 }
 
 .letter-tile {
-  /* #538D4E for correct position and position*/
-  /* #B59F3B for correct word but wrong position */
-  /* #58585A for all incorrect*/
   border: 2px solid black;
-  height: 58px;
-  width: 58px;
+  height: 68px;
+  width: 68px;
   margin: 1px;
   border-color: #b4a68f;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 36px;
+  font-size: 42px;
 }
 
 .example-tile {

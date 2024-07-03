@@ -1,11 +1,11 @@
-// As a user, I want to be given instructions as the page loads so that I know how to play the game.
-// As a user, I want to be able to access a “How to Play” infobox so that I can learn how to play in case I forget.
-// As a user, I want to be able to select a category to start the game.
-// As a user, I want a keyboard layout so that I can choose to click or type in my selection.
-// As a user, I want to hit enter or click the enter button so that I can validate my word.
-// As a user, I want a visual representation of how many chances I have left.
+//// As a user, I want to be given instructions as the page loads so that I know how to play the game.
+//// As a user, I want to be able to access a “How to Play” infobox so that I can learn how to play in case I forget.
+//// As a user, I want to be able to select a category to start the game.
+//// As a user, I want a keyboard layout so that I can choose to click or type in my selection.
+//// As a user, I want to hit enter or click the enter button so that I can validate my word.
+//// As a user, I want a visual representation of how many chances I have left.
 // As a user, I want my tiles to perform an animation when I submit my word choice.
-// As a user, I want the inputs tiles to be highlighted green, yellow, or grey so that I know which inputs are in the the correct place, wrong place, or not used at all respectively.
+//// As a user, I want the inputs tiles to be highlighted green, yellow, or grey so that I know which inputs are in the the correct place, wrong place, or not used at all respectively.
 // As a user, I want inputs that I have previously used to be null and cannot be reused.
 // As a user, I want word validation so that I cannot use a word not on the list.
 // As a user, I want the game to end when I entered the correct answer.
@@ -54,24 +54,9 @@ const closeCategoriesModal = document.getElementById('close-categories-modal');
 const titleEl = document.querySelector('.header'); //! remove in final product
 
 /*-------------------------------- Functions --------------------------------*/
-const init = () => {
-  let randomNum = Math.floor(Math.random() * words.length);
-
-  round = 0; // round starts at 0 not 1
-  gameIsOver = false;
-  playerWord = [];
-  validWords = wordList;
-  category = words;
-  winningWord = words[randomNum].toUpperCase().split(''); // splits word into letters into an array
-
-  //! remove in final product START
-  titleEl.innerHTML = `Wordle: Categories For Testing: ${words[
-    randomNum
-  ].toUpperCase()}`;
-
+const init = () =>{
   categoriesModal.style.display = 'block'
-  //! remove in final product END
-};
+}
 
 const generateTiles = () => {
   // clears default board to dynamically generate new tiles for chosen word
@@ -94,16 +79,40 @@ const generateTiles = () => {
   }
 };
 
+const render = (array, validWordList) => {
+  categoriesModal.style.display = 'none';
+  let randomNum = Math.floor(Math.random() * array.length);
+  console.log(array.length);
+
+  round = 0; // round starts at 0 not 1
+  gameIsOver = false;
+  playerWord = [];
+  validWords = validWordList;
+  category = array;
+  winningWord = array[randomNum].toUpperCase().split(''); // splits word into letters into an array
+
+  generateTiles();
+  howToModal.style.display = 'block'
+
+  //! remove in final product START
+  titleEl.innerHTML = `Wordle: Categories For Testing: ${array[
+    randomNum
+  ].toUpperCase()}`;
+  //! remove in final product END
+};
+
 const inputHandler = (event) => {
   // prevents default button highlighting (focus)
   if (event.target.className === 'keyboard-btn') {
     event.target.blur();
   }
+
   // handling of both keyboard inputs and on-screen keyboard clicks
   if (
     gameIsOver === true ||
     event.target.className === 'keyboard-section' ||
-    event.target.className === 'keyboard-row'
+    event.target.className === 'keyboard-row' ||
+    !category
   ) {
     return;
   } else if (event.target.id === 'backspace-btn' || event.key === 'Backspace') {
@@ -149,17 +158,12 @@ const updateTiles = (input, idx) => {
 };
 
 const isValidWord = () => {
-  console.log(category);
   if (playerWord.length !== winningWord.length) {
     // prevents submission if word isn't filled
     return;
   } else if (!validWords.includes(playerWord.join(''))) {
-    console.log('Not in word list!');
     return;
   } else if (validWords.includes(playerWord.join(''))) {
-    console.log('match!');
-    console.log(playerWord);
-    console.log(winningWord);
     eval(playerWord, winningWord);
   }
 };
@@ -173,6 +177,9 @@ const eval = (playerLetter, correctLetter) => {
       let greenTile = document.getElementById(`row-${round}-tile-${index}`);
       greenTile.style.backgroundColor = '#498047';
 
+      let updateGreenBtn = document.querySelector(`.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`)
+      updateGreenBtn.style.backgroundColor = '#498047'
+
       numCorrect = numCorrect + 1;
     } else if (
       correctLetter.includes(element) &&
@@ -181,10 +188,16 @@ const eval = (playerLetter, correctLetter) => {
       // (Yellow tile) letter exist and in wrong place
       let yellowTile = document.getElementById(`row-${round}-tile-${index}`);
       yellowTile.style.backgroundColor = '#84732A';
+
+      let updateYellowBtn = document.querySelector(`.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`)
+      updateYellowBtn.style.backgroundColor = '#84732A'
     } else if (!correctLetter.includes(element)) {
       // (Gray tile) letter does not exist anywhere
       let grayTile = document.getElementById(`row-${round}-tile-${index}`);
       grayTile.style.backgroundColor = '#727274';
+
+      let updateGrayBtn = document.querySelector(`.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`)
+      updateGrayBtn.style.backgroundColor = '#3f3f3f'
     }
   });
 
@@ -206,14 +219,27 @@ const checkForWinner = (event) => {
   }
 };
 
-init();
-generateTiles();
+const categoryTester = (event) =>{
+  if(event.target.id === 'wordle'){
+    render(words, wordList)
+  } else if(event.target.id === 'pokemon'){
+    render(pokemons, pokemons)
+  } else if(event.target.id === 'fruitsAndVegetables'){
+    render(fruitsAndVegetables, fruitsAndVegetables)
+  } else{
+    return
+  }
+}
+
+setTimeout(init, 800)
 
 /*----------------------------- Event Listeners -----------------------------*/
 document
   .querySelector('.keyboard-section')
   .addEventListener('click', inputHandler); // listens for on-screen keyboard button clicks
 document.addEventListener('keydown', inputHandler); // listens for keyboard keypress
+document.querySelector('.select-category-modal').addEventListener('click', categoryTester)
+
 
 // modal listeners
 howToBtn.onclick = () => (howToModal.style.display = 'block');
