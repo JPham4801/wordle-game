@@ -31,13 +31,12 @@ header {
 }
 
 header img {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
 }
 
 header div {
   display: flex;
-  align-items: center;
   gap: 10px;
 }
 
@@ -51,8 +50,8 @@ main {
   margin-bottom: 24px;
 }
 
-/* how-to modal styling start */
-.modal {
+/* modal styling start */
+.select-category-modal, .how-to-modal {
   display: none;  /* ! set to block for display on-load */
   position: fixed;
   justify-content: center;
@@ -66,12 +65,14 @@ main {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+
+
 .modal-content {
   position: relative;
   background-color: #2c2c2e;
   color: #ffffff;
   margin: 10% auto; /* 10% from the top and always centered */
-  padding: 32px;
+  padding: 48px;
   border: 1px solid #888;
   border-radius: 8px;
   border-color: #3d3939;
@@ -117,11 +118,6 @@ main {
   left: 0;
 }
 
-.modal-wrapper {
-  padding: 16px;
-  width: 100%;
-}
-
 .board-container {
   width: 100%;
   display: flex;
@@ -157,7 +153,7 @@ main {
 /* category btn styling start */
 
 .select-category-btn {
-  background-color: #498047;
+  background-color: #538d4e;
   border: none;
   border-radius: 12px;
   padding: 12px;

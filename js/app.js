@@ -28,7 +28,6 @@
 //  - button in modal to select
 // change modal cached element ref names
 
-
 //!reminder   Wordle = words, wordList    Pokemon = pokemons, pokemons
 
 /*-------------------------------- Constants --------------------------------*/
@@ -37,16 +36,20 @@
 let round;
 let gameIsOver;
 let playerWord;
-let category;
 let validWords;
+let category;
 let winningWord;
 
 /*------------------------ Cached Element References ------------------------*/
 const inputEl = document.querySelectorAll('.input-tile');
-// const modal = document.getElementById('how-to-modal');
-// const btn = document.getElementById('myBtn');
-// const span = document.getElementsByClassName('close')[0];
 const board = document.querySelector('.board-area');
+// modal element references
+const howToBtn = document.getElementById('info-button');
+const categoriesBtn = document.getElementById('select-category-btn');
+const categoriesModal = document.getElementById('select-category-modal');
+const howToModal = document.getElementById('how-to-modal');
+const closeHowToModal = document.getElementById('close-how-to-modal');
+const closeCategoriesModal = document.getElementById('close-categories-modal');
 
 const titleEl = document.querySelector('.header'); //! remove in final product
 
@@ -57,35 +60,37 @@ const init = () => {
   round = 0; // round starts at 0 not 1
   gameIsOver = false;
   playerWord = [];
-  category = words;
   validWords = wordList;
+  category = words;
   winningWord = words[randomNum].toUpperCase().split(''); // splits word into letters into an array
 
   //! remove in final product START
   titleEl.innerHTML = `Wordle: Categories For Testing: ${words[
     randomNum
   ].toUpperCase()}`;
+
+  categoriesModal.style.display = 'block'
   //! remove in final product END
 };
 
 const generateTiles = () => {
   // clears default board to dynamically generate new tiles for chosen word
-  board.innerHTML = ''
+  board.innerHTML = '';
 
   // for loop to generate 6 rows (tries in game) with n numbers of tiles equal to the letters in winning word
   for (let i = 0; i < 6; i++) {
     let newBoardRow = document.createElement('div');
     newBoardRow.className = 'board-container';
-    newBoardRow.id = `row-${[i]}`
+    newBoardRow.id = `row-${[i]}`;
 
     winningWord.forEach((element, index) => {
       let newBoardContainer = document.createElement('div');
       newBoardContainer.className = 'letter-tile';
       newBoardContainer.id = `row-${[i]}-tile-${index}`;
       newBoardRow.appendChild(newBoardContainer);
-    })
-    
-    board.appendChild(newBoardRow)
+    });
+
+    board.appendChild(newBoardRow);
   }
 };
 
@@ -201,18 +206,6 @@ const checkForWinner = (event) => {
   }
 };
 
-// modal functions
-
-const openModal = (id) =>{
-  const modal = document.getElementById(id);
-  modal.style.display = 'block'
-}
-
-const closeModal = (id) =>{
-  const modal = document.getElementById(id);
-  modal.style.display = 'none'
-}
-
 init();
 generateTiles();
 
@@ -222,20 +215,19 @@ document
   .addEventListener('click', inputHandler); // listens for on-screen keyboard button clicks
 document.addEventListener('keydown', inputHandler); // listens for keyboard keypress
 
-// Add event listeners for opening modals
-document.getElementById('open-how-to-modal').onclick = () => openModal('how-to-modal');
-document.getElementById('open-category-modal').onclick = () => openModal('category-modal');
+// modal listeners
+howToBtn.onclick = () => (howToModal.style.display = 'block');
 
-// Add event listeners for closing modals
-document.getElementById('close-how-to-modal').onclick = () => closeModal('how-to-modal');
-document.getElementById('close-category-modal').onclick = () => closeModal('category-modal');
+categoriesBtn.onclick = () => (categoriesModal.style.display = 'block');
 
-// Add event listener for clicking outside the modals
-window.onclick = (event) => {
-  const modals = document.querySelectorAll('.modal');
-  modals.forEach((modal) => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-};
+closeHowToModal.onclick = () => (howToModal.style.display = 'none');
+
+closeCategoriesModal.onclick = () => (categoriesModal.style.display = 'none');
+
+window.addEventListener('click', (event) => {
+  if (event.target === howToModal) {
+    howToModal.style.display = 'none';
+  } else if (event.target === categoriesModal) {
+    categoriesModal.style.display = 'none';
+  }
+});
