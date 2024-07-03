@@ -94,11 +94,11 @@ const render = (array, validWordList) => {
   generateTiles();
   howToModal.style.display = 'block'
 
-  //! remove in final product START
-  titleEl.innerHTML = `Wordle: Categories For Testing: ${array[
-    randomNum
-  ].toUpperCase()}`;
-  //! remove in final product END
+  // //! remove in final product START
+  // titleEl.innerHTML = `Wordle: Categories For Testing: ${array[
+  //   randomNum
+  // ].toUpperCase()}`;
+  // //! remove in final product END
 };
 
 const inputHandler = (event) => {
