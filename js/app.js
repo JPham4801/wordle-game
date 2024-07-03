@@ -21,11 +21,13 @@
 //todo
 // dynamically make tiles once random word is chose to equal the word length
 // add different arrays
+// change color of on-screen keyboard according to letter color
 // add animations
 // modal
 //  - diff arrays button options
 //  - button in modal to select
 // change modal cached element ref names
+
 
 //!reminder   Wordle = words, wordList    Pokemon = pokemons, pokemons
 
@@ -41,9 +43,9 @@ let winningWord;
 
 /*------------------------ Cached Element References ------------------------*/
 const inputEl = document.querySelectorAll('.input-tile');
-const modal = document.getElementById('how-to-modal');
-const btn = document.getElementById('myBtn');
-const span = document.getElementsByClassName('close')[0];
+// const modal = document.getElementById('how-to-modal');
+// const btn = document.getElementById('myBtn');
+// const span = document.getElementsByClassName('close')[0];
 const board = document.querySelector('.board-area');
 
 const titleEl = document.querySelector('.header'); //! remove in final product
@@ -201,19 +203,15 @@ const checkForWinner = (event) => {
 
 // modal functions
 
-btn.onclick = () => {
-  modal.style.display = 'block';
-};
+const openModal = (id) =>{
+  const modal = document.getElementById(id);
+  modal.style.display = 'block'
+}
 
-span.onclick = () => {
-  modal.style.display = 'none';
-};
-
-window.onclick = (event) => {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
-};
+const closeModal = (id) =>{
+  const modal = document.getElementById(id);
+  modal.style.display = 'none'
+}
 
 init();
 generateTiles();
@@ -223,3 +221,21 @@ document
   .querySelector('.keyboard-section')
   .addEventListener('click', inputHandler); // listens for on-screen keyboard button clicks
 document.addEventListener('keydown', inputHandler); // listens for keyboard keypress
+
+// Add event listeners for opening modals
+document.getElementById('open-how-to-modal').onclick = () => openModal('how-to-modal');
+document.getElementById('open-category-modal').onclick = () => openModal('category-modal');
+
+// Add event listeners for closing modals
+document.getElementById('close-how-to-modal').onclick = () => closeModal('how-to-modal');
+document.getElementById('close-category-modal').onclick = () => closeModal('category-modal');
+
+// Add event listener for clicking outside the modals
+window.onclick = (event) => {
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach((modal) => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+};
