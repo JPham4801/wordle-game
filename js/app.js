@@ -25,6 +25,7 @@
 // modal
 //  - diff arrays button options
 //  - button in modal to select
+// change modal cached element ref names
 
 /*-------------------------------- Constants --------------------------------*/
 
@@ -41,6 +42,7 @@ const inputEl = document.querySelectorAll('.input-tile');
 const modal = document.getElementById('myModal');
 const btn = document.getElementById('myBtn');
 const span = document.getElementsByClassName('close')[0];
+const board = document.querySelector('.board-area');
 
 const titleEl = document.querySelector('.header'); //! remove in final product
 
@@ -54,7 +56,6 @@ const init = () => {
   category = words;
   validWords = wordList;
   winningWord = words[randomNum].toUpperCase().split(''); // splits word into letters into an array
-  console.log(winningWord);
 
   //! remove in final product START
   titleEl.innerHTML = `Wordle: Categories <br><br>For testing: <br>Word is ${words[
@@ -63,9 +64,26 @@ const init = () => {
   //! remove in final product END
 };
 
-const generateTiles = () =>{
-  
-}
+const generateTiles = () => {
+  // clears default board to dynamically generate new tiles for chosen word
+  board.innerHTML = ''
+
+  // for loop to generate 6 rows (tries in game) with n numbers of tiles equal to the letters in winning word
+  for (let i = 0; i < 6; i++) {
+    let newBoardRow = document.createElement('div');
+    newBoardRow.className = 'board-container';
+    newBoardRow.id = `row-${[i]}`
+
+    winningWord.forEach((element, index) => {
+      let newBoardContainer = document.createElement('div');
+      newBoardContainer.className = 'letter-tile';
+      newBoardContainer.id = `row-${[i]}-tile-${index}`;
+      newBoardRow.appendChild(newBoardContainer);
+    })
+    
+    board.appendChild(newBoardRow)
+  }
+};
 
 const inputHandler = (event) => {
   // prevents default submission (focus) when clicking a button and then a keyboard key
@@ -127,12 +145,12 @@ const isValidWord = () => {
   if (playerWord.length !== winningWord.length) {
     // prevents submission if word isn't filled
     return;
-  } else if(!category.includes(playerWord.join(''))){
+  } else if (!category.includes(playerWord.join(''))) {
     console.log('Not in word list!');
     return;
-  } else if(category.includes(playerWord.join(''))){
+  } else if (category.includes(playerWord.join(''))) {
     console.log('match!');
-    eval(playerWord, winningWord)
+    eval(playerWord, winningWord);
   }
 };
 
@@ -195,6 +213,7 @@ window.onclick = (event) => {
 };
 
 init();
+generateTiles();
 
 /*----------------------------- Event Listeners -----------------------------*/
 document
