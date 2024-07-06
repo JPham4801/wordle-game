@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wordle: Categories</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <script defer src="./js/app.js"></script>
     <script src="./js/words.js"></script>
     <script src="./js/colors.js"></script>
@@ -13,7 +19,7 @@
   </head>
   <body>
     <header>
-      <h1 class="header">Wordle: Categories</h1>
+      <h1 class="header roboto-black">Wordle: Categories</h1>
       <div>
         <img
           class="info-box"
@@ -21,14 +27,13 @@
           src="./resources/info-icon.svg"
           alt="icon of infobox"
         />
-        <button type="button" class="category-btn" id="select-category-btn">
+        <button type="button" class="category-btn roboto-medium" id="select-category-btn">
           Select New Category
         </button>
       </div>
     </header>
     <main>
-      <div class="invalid-prompt-container">
-      </div>
+      <div class="invalid-prompt-container"></div>
       <!-- category modal -->
       <div class="select-category-modal" id="select-category-modal">
         <div class="modal-content">
@@ -49,17 +54,17 @@
             </svg>
           </button>
           <h1 id="gameover-message"></h1>
-          <h2 class="modal-header" id="category-message">Select a Category</h2>
+          <h2 class="modal-header roboto-bold" id="category-message">Select a Category</h2>
           <div class="category-btn-wrapper">
-            <button type="button" class="category-btn" id="wordle-category-btn">
+            <button type="button" class="category-btn roboto-medium" id="wordle-category-btn">
               Original Wordle
             </button>
-            <button type="button" class="category-btn" id="colors-category-btn">
+            <button type="button" class="category-btn roboto-medium" id="colors-category-btn">
               Colors
             </button>
             <button
               type="button"
-              class="category-btn"
+              class="category-btn roboto-medium"
               id="fruits-and-vegetables-category-btn"
             >
               Fruits & Vegetables
@@ -86,17 +91,17 @@
               ></path>
             </svg>
           </button>
-          <h2 class="modal-header">How To Play</h2>
-          <h3 class="modal-sub-header">Guess the word in 6 tries</h3>
+          <h2 class="modal-header roboto-black">How To Play</h2>
+          <h3 class="modal-sub-header roboto-medium">Guess the word in 6 tries</h3>
           <div class="how-to-section">
-            <ul class="modal-base how-to-list">
-              <li>Each guess must be a valid word from each category</li>
+            <ul class="modal-base how-to-list roboto-medium">
+              <li>Each guess must be a valid word from their category</li>
               <li>
                 The color of the tiles will change to show how close your guess
                 was to the word.
               </li>
             </ul>
-            <div class="modal-base">Examples:</div>
+            <div class="modal-base roboto-medium">Examples:</div>
             <div>
               <div class="board-container example-board">
                 <div
@@ -111,7 +116,7 @@
                 <div class="example-tile">D</div>
                 <div class="example-tile">S</div>
               </div>
-              <p>W is in the word and in the correct spot.</p>
+              <p class="roboto-medium">W is in the word and in the correct spot.</p>
             </div>
             <div>
               <div class="board-container example-board">
@@ -127,7 +132,7 @@
                 <div class="example-tile">E</div>
                 <div class="example-tile">S</div>
               </div>
-              <p>I is in the word but in the wrong spot.</p>
+              <p class="roboto-medium">I is in the word but in the wrong spot.</p>
             </div>
             <div>
               <div class="board-container example-board">
@@ -143,7 +148,7 @@
                 </div>
                 <div class="example-tile">E</div>
               </div>
-              <p>U is not in the word in any spot.</p>
+              <p class="roboto-medium">U is not in the word in any spot.</p>
             </div>
           </div>
         </div>
