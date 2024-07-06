@@ -89,7 +89,7 @@ main {
   width: 90%;
 }
 
-.select-category-modal,
+.category-selection-modal,
 .how-to-modal {
   display: none;
   position: fixed;
@@ -103,7 +103,7 @@ main {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.select-category-modal .modal-content {
+.category-selection-modal .modal-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +111,7 @@ main {
   max-width: 620px;
 }
 
-.modal-header {
+.modal-title {
   font-size: 32px;
   font-weight: bold;
   margin: 28px 0 1px 0;
@@ -183,7 +183,6 @@ main {
 
 /* how-to modal styling end */
 /* category btn styling start */
-
 .category-btn {
   background-color: #498047;
   border: none;
@@ -228,7 +227,7 @@ main {
   font-size: 42px;
 }
 
-.example-tile {
+.example-letter-tile {
   border: 1px solid black;
   height: 42px;
   width: 42px;
@@ -240,7 +239,7 @@ main {
   font-size: 32px;
 }
 
-.keyboard-section {
+.keyboard-area {
   display: flex;
   flex-direction: column;
   align-items: center;

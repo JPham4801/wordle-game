@@ -23,7 +23,7 @@
       <div>
         <img
           class="info-box"
-          id="info-button"
+          id="info-icon"
           src="./resources/info-icon.svg"
           alt="icon of infobox"
         />
@@ -35,7 +35,7 @@
     <main>
       <div class="invalid-prompt-container"></div>
       <!-- category modal -->
-      <div class="select-category-modal" id="select-category-modal">
+      <div class="category-selection-modal" id="category-selection-modal">
         <div class="modal-content">
           <button type="button" class="close" id="close-categories-modal">
             <svg
@@ -53,8 +53,8 @@
               ></path>
             </svg>
           </button>
-          <h1 id="gameover-message"></h1>
-          <h2 class="modal-header roboto-bold" id="category-message">Select a Category</h2>
+          <h1 id="game-over-message"></h1>
+          <h2 class= "modal-title roboto-bold" id="category-message">Select a Category</h2>
           <div class="category-btn-wrapper">
             <button type="button" class="category-btn roboto-medium" id="wordle-category-btn">
               Original Wordle
@@ -91,8 +91,8 @@
               ></path>
             </svg>
           </button>
-          <h2 class="modal-header roboto-black">How To Play</h2>
-          <h3 class="modal-sub-header roboto-medium">Guess the word in 6 tries</h3>
+          <h2 class= "modal-title roboto-black">How To Play</h2>
+          <h3 class="roboto-medium">Guess the word in 6 tries</h3>
           <div class="how-to-section">
             <ul class="modal-base how-to-list roboto-medium">
               <li>Each guess must be a valid word from their category</li>
@@ -105,48 +105,48 @@
             <div>
               <div class="board-container example-board">
                 <div
-                  class="example-tile flip-horizontal-top"
+                  class="example-letter-tile flip-horizontal-top"
                   style="background-color: #538d4e"
                   alt="Green tile with the letter W at it's center"
                 >
                   W
                 </div>
-                <div class="example-tile">O</div>
-                <div class="example-tile">R</div>
-                <div class="example-tile">D</div>
-                <div class="example-tile">S</div>
+                <div class="example-letter-tile">O</div>
+                <div class="example-letter-tile">R</div>
+                <div class="example-letter-tile">D</div>
+                <div class="example-letter-tile">S</div>
               </div>
               <p class="roboto-medium">W is in the word and in the correct spot.</p>
             </div>
             <div>
               <div class="board-container example-board">
-                <div class="example-tile">T</div>
+                <div class="example-letter-tile">T</div>
                 <div
-                  class="example-tile flip-horizontal-top"
+                  class="example-letter-tile flip-horizontal-top"
                   style="background-color: #84732a"
                   alt="Yellow tile with the letter I at it's center"
                 >
                   I
                 </div>
-                <div class="example-tile">L</div>
-                <div class="example-tile">E</div>
-                <div class="example-tile">S</div>
+                <div class="example-letter-tile">L</div>
+                <div class="example-letter-tile">E</div>
+                <div class="example-letter-tile">S</div>
               </div>
               <p class="roboto-medium">I is in the word but in the wrong spot.</p>
             </div>
             <div>
               <div class="board-container example-board">
-                <div class="example-tile">R</div>
-                <div class="example-tile">O</div>
-                <div class="example-tile">G</div>
+                <div class="example-letter-tile">R</div>
+                <div class="example-letter-tile">O</div>
+                <div class="example-letter-tile">G</div>
                 <div
-                  class="example-tile flip-horizontal-top"
+                  class="example-letter-tile flip-horizontal-top"
                   style="background-color: #58585a"
                   alt="Gray tile with the letter U at it's center"
                 >
                   U
                 </div>
-                <div class="example-tile">E</div>
+                <div class="example-letter-tile">E</div>
               </div>
               <p class="roboto-medium">U is not in the word in any spot.</p>
             </div>
@@ -202,7 +202,7 @@
       <!-- on-load board area end -->
     </main>
     <!-- on-screen keyboard start -->
-    <div class="keyboard-section roboto-black">
+    <div class="keyboard-area roboto-black">
       <div class="keyboard-row">
         <button type="button" class="keyboard-btn roboto-black" key="q">Q</button>
         <button type="button" class="keyboard-btn roboto-black" key="w">W</button>

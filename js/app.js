@@ -2,7 +2,12 @@
 // refactor the '.toUpperCase' throughout code (possibly not needed after implmenting arrays)
 // (Yellow tiles) if letter is in the right place but does not exist anywhere else, make those tiles false (maybe forEach method)
 // refactor css (especially the modal section)
+// refactor js codes. simplier functions and easier to read
 // clicks in keyboard section error (length)
+
+//todo
+// 2. Constants for Magic Strings/Numbers
+// Define constants for magic strings and numbers: This helps in maintaining the code and makes it more readable
 
 /*-------------------------------- Constants --------------------------------*/
 
@@ -16,53 +21,55 @@ let targetWord;
 
 /*------------------------ Cached Element References ------------------------*/
 const boardArea = document.querySelector('.board-area');
-const gameOverMessage = document.getElementById('gameover-message');
+const gameOverMessage = document.getElementById('game-over-message');
 const categoryMessageEl = document.getElementById('category-message');
 const keyboardButtons = document.querySelectorAll('.keyboard-btn');
 const invalidPromptContainerEl = document.querySelector(
   '.invalid-prompt-container'
 );
 // modal element references
-const howToBtn = document.getElementById('info-button');
+const howToBtn = document.getElementById('info-icon');
 const selectCategoryButton = document.getElementById('select-category-btn');
-const selectCategoryModal = document.getElementById('select-category-modal');
+const categorySelectionModal = document.getElementById(
+  'category-selection-modal'
+);
 const howToModalEl = document.getElementById('how-to-modal');
 const closeHowToModalBtn = document.getElementById('close-how-to-modal');
-const closeCategoriesModalBtn = document.getElementById('close-categories-modal');
-
+const closeCategoriesModalBtn = document.getElementById(
+  'close-categories-modal'
+);
 
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
-  selectCategoryModal.style.display = 'none';
+  categorySelectionModal.style.display = 'none';
   howToModalEl.style.display = 'block';
 };
 
 const generateTiles = () => {
   // clears default board and dynamically generate new tiles for chosen word
   boardArea.innerHTML = '';
-  
+
   // for loop to generate 6 rows (tries in game) with n numbers of tiles equal to the letters in winning word
   for (let i = 0; i < 6; i++) {
-    let newBoardRow = document.createElement('div');
+    const newBoardRow = document.createElement('div');
     newBoardRow.className = 'board-container';
     newBoardRow.id = `row-${[i]}`;
-    
+
     targetWord.forEach((_, index) => {
-      let newBoardContainer = document.createElement('div');
+      const newBoardContainer = document.createElement('div');
       newBoardContainer.className = 'letter-tile';
       newBoardContainer.id = `row-${[i]}-tile-${index}`;
       newBoardRow.appendChild(newBoardContainer);
     });
-    
+
     boardArea.appendChild(newBoardRow);
   }
 };
 
 const render = (wordsArray, validWordList) => {
-  selectCategoryModal.style.display = 'none';
+  categorySelectionModal.style.display = 'none';
   let randomizer = Math.floor(Math.random() * wordsArray.length);
-  console.log(wordsArray.length);
-  
+
   currentRound = 0; // round starts at 0
   isGameOver = false;
   guessedWord = [];
@@ -71,15 +78,16 @@ const render = (wordsArray, validWordList) => {
   targetWord = wordsArray[randomizer].split(''); // splits word into letters into an array
   categoryMessageEl.innerText = 'Select a Category';
   gameOverMessage.innerText = '';
-  
+  console.log(targetWord);
+
   keyboardButtons.forEach((button) => {
     button.style.backgroundColor = '#757575'; // resets keyboard back to default
   });
-  
+
   howToModalEl.style.display = 'block';
   generateTiles();
-  
-  //! remove in final product START
+
+  //! remove in final product START and remove .header from html <h1> class
   const headerTitleEl = document.querySelector('.header');
   headerTitleEl.innerHTML = `Wordle: Categories For Testing: ${wordsArray[randomizer]}`;
   //! remove in final product END
@@ -94,7 +102,7 @@ const inputHandler = (event) => {
   // handling of both keyboard inputs and on-screen keyboard clicks
   if (
     isGameOver === true ||
-    event.target.classList.contains('keyboard-section') ||
+    event.target.classList.contains('keyboard-area') ||
     event.target.classList.contains('keyboard-row') ||
     !selectedCategory
   ) {
@@ -179,7 +187,9 @@ const evaluateWord = (guessedLetters, targetWordLetters) => {
       if (guessedLetter === targetWordLetters[index]) {
         // (Green tile) letter exists and is in the right place
         let tileBackgroundColor = '#498047';
-        let tileEl = document.getElementById(`row-${currentRound}-tile-${index}`);
+        let tileEl = document.getElementById(
+          `row-${currentRound}-tile-${index}`
+        );
 
         updateTileAppearance(
           tileEl,
@@ -194,7 +204,9 @@ const evaluateWord = (guessedLetters, targetWordLetters) => {
       ) {
         // (Yellow tile) letter exists and is in the wrong place
         let tileBackgroundColor = '#84732A';
-        let tileEl = document.getElementById(`row-${currentRound}-tile-${index}`);
+        let tileEl = document.getElementById(
+          `row-${currentRound}-tile-${index}`
+        );
 
         updateTileAppearance(
           tileEl,
@@ -205,7 +217,9 @@ const evaluateWord = (guessedLetters, targetWordLetters) => {
       } else if (!targetWordLetters.includes(guessedLetter)) {
         // (Gray tile) letter does not exist anywhere
         let tileBackgroundColor = '#3d3d3d';
-        let tileEl = document.getElementById(`row-${currentRound}-tile-${index}`);
+        let tileEl = document.getElementById(
+          `row-${currentRound}-tile-${index}`
+        );
 
         updateTileAppearance(
           tileEl,
@@ -245,14 +259,14 @@ const checkForWinner = (event) => {
       isGameOver = true;
       gameOverMessage.innerText = 'You guessed correct!';
       categoryMessageEl.innerText = 'Play again? Select a category.';
-      selectCategoryModal.style.display = 'block';
+      categorySelectionModal.style.display = 'block';
     } else if (isGameOver === false && currentRound === 6) {
       isGameOver = true;
       gameOverMessage.innerText = `You lost! The word was ${targetWord.join(
         ''
       )}`;
       categoryMessageEl.innerText = 'Play again? Select a category.';
-      selectCategoryModal.style.display = 'block';
+      categorySelectionModal.style.display = 'block';
     }
   }, targetWord.length * 200);
 };
@@ -273,26 +287,26 @@ init();
 
 /*----------------------------- Event Listeners -----------------------------*/
 document
-  .querySelector('.keyboard-section')
+  .querySelector('.keyboard-area')
   .addEventListener('click', inputHandler); // listens for on-screen keyboard button clicks
 document.addEventListener('keydown', inputHandler); // listens for keyboard keypress
-document
-  .querySelector('.select-category-modal')
-  .addEventListener('click', categoryOptions);
+categorySelectionModal.addEventListener('click', categoryOptions);
 
 // modal listeners
 howToBtn.onclick = () => (howToModalEl.style.display = 'block');
 
-selectCategoryButton.onclick = () => (selectCategoryModal.style.display = 'block');
+selectCategoryButton.onclick = () =>
+  (categorySelectionModal.style.display = 'block');
 
 closeHowToModalBtn.onclick = () => (howToModalEl.style.display = 'none');
 
-closeCategoriesModalBtn.onclick = () => (selectCategoryModal.style.display = 'none');
+closeCategoriesModalBtn.onclick = () =>
+  (categorySelectionModal.style.display = 'none');
 
 window.addEventListener('click', (event) => {
   if (event.target === howToModalEl) {
     howToModalEl.style.display = 'none';
-  } else if (event.target === selectCategoryModal) {
-    selectCategoryModal.style.display = 'none';
+  } else if (event.target === categorySelectionModal) {
+    categorySelectionModal.style.display = 'none';
   }
 });
