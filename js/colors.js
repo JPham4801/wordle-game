@@ -1,0 +1,16 @@
+const colors = [
+  'RED',
+  'BLUE',
+  'YELLOW',
+  'GREEN',
+  'ORANGE',
+  'PURPLE',
+  'PINK',
+  'BROWN',
+  'BLACK',
+  'WHITE',
+  'GRAY',
+  'NAVY',
+  'GOLD',
+  'SILVER',
+];

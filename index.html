@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <script defer src="./js/app.js"></script>
     <script src="./js/words.js"></script>
-    <script src="./js/pokemon.js"></script>
+    <script src="./js/colors.js"></script>
     <script src="./js/fruitsAndVegetables.js"></script>
     <script src="./js/wordlist.js"></script>
   </head>
@@ -46,11 +46,22 @@
               ></path>
             </svg>
           </button>
-          <h2 class="modal-header">Select a Category</h2>
+          <h1 id="gameover-message"></h1>
+          <h2 class="modal-header" id="category-message">Select a Category</h2>
           <div class="category-btn-wrapper">
-            <button type="button" class="category-btn" id="wordle">Original Wordle</button>
-            <button type="button" class="category-btn" id="pokemon">Pokemon</button>
-            <button type="button" class="category-btn" id="fruitsAndVegetables">Fruits & Vegetables</button>
+            <button type="button" class="category-btn" id="wordle-category-btn">
+              Original Wordle
+            </button>
+            <button type="button" class="category-btn" id="colors-category-btn">
+              Colors
+            </button>
+            <button
+              type="button"
+              class="category-btn"
+              id="fruits-and-vegetables-category-btn"
+            >
+              Fruits & Vegetables
+            </button>
           </div>
         </div>
       </div>
@@ -86,7 +97,10 @@
             <div class="modal-base">Examples:</div>
             <div>
               <div class="board-container example-board">
-                <div class="example-tile" style="background-color: #538d4e">
+                <div
+                  class="example-tile flip-horizontal-top"
+                  style="background-color: #538d4e"
+                >
                   W
                 </div>
                 <div class="example-tile">O</div>
@@ -99,7 +113,10 @@
             <div>
               <div class="board-container example-board">
                 <div class="example-tile">T</div>
-                <div class="example-tile" style="background-color: #84732a">
+                <div
+                  class="example-tile flip-horizontal-top"
+                  style="background-color: #84732a"
+                >
                   I
                 </div>
                 <div class="example-tile">L</div>
@@ -113,7 +130,10 @@
                 <div class="example-tile">R</div>
                 <div class="example-tile">O</div>
                 <div class="example-tile">G</div>
-                <div class="example-tile" style="background-color: #58585a">
+                <div
+                  class="example-tile flip-horizontal-top"
+                  style="background-color: #58585a"
+                >
                   U
                 </div>
                 <div class="example-tile">E</div>

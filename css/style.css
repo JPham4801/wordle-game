@@ -51,6 +51,7 @@ main {
 }
 
 /* modal styling start */
+
 .modal-content {
   position: relative;
   background-color: #2c2c2e;
@@ -64,8 +65,9 @@ main {
   width: 90%;
 }
 
-.select-category-modal, .how-to-modal {
-  display: none;  /* ! set to block for display on-load */
+.select-category-modal,
+.how-to-modal {
+  display: none;
   position: fixed;
   justify-content: center;
   align-items: center;
@@ -77,7 +79,6 @@ main {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
-
 
 .select-category-modal .modal-content {
   display: flex;
@@ -103,7 +104,8 @@ main {
   position: relative;
 }
 
-.how-to-section > *, .category-btn-wrapper {
+.how-to-section > *,
+.category-btn-wrapper {
   margin-top: 20px;
 }
 
@@ -119,8 +121,8 @@ main {
 }
 
 .how-to-list li::before {
-  content: "•";
-  color: #FFFFFF;
+  content: '•';
+  color: #ffffff;
   position: absolute;
   left: 0;
 }
@@ -136,7 +138,7 @@ main {
 }
 
 /* modal close icon */
-.info-icon {
+.info-icon{
   width: 100%;
   height: 100%;
 }
@@ -235,4 +237,22 @@ main {
 
 #enter-btn {
   width: 88px;
+}
+
+/* animations */
+.flip-horizontal-top {
+  animation: flip-horizontal-top 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+}
+
+@keyframes flip-horizontal-top {
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
 }

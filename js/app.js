@@ -28,7 +28,7 @@
 //  - button in modal to select
 // change modal cached element ref names
 
-//!reminder   Wordle = words, wordList    Pokemon = pokemons, pokemons
+//!reminder   Wordle = words, wordList    colors = colors, colors
 
 /*-------------------------------- Constants --------------------------------*/
 
@@ -43,6 +43,9 @@ let winningWord;
 /*------------------------ Cached Element References ------------------------*/
 const inputEl = document.querySelectorAll('.input-tile');
 const board = document.querySelector('.board-area');
+const gameoverMessage = document.getElementById('gameover-message');
+const categoryMessage = document.getElementById('category-message');
+const keyboardBtn = document.querySelectorAll('.keyboard-btn')
 // modal element references
 const howToBtn = document.getElementById('info-button');
 const categoriesBtn = document.getElementById('select-category-btn');
@@ -54,9 +57,9 @@ const closeCategoriesModal = document.getElementById('close-categories-modal');
 const titleEl = document.querySelector('.header'); //! remove in final product
 
 /*-------------------------------- Functions --------------------------------*/
-const init = () =>{
-  categoriesModal.style.display = 'block'
-}
+const init = () => {
+  categoriesModal.style.display = 'block';
+};
 
 const generateTiles = () => {
   // clears default board to dynamically generate new tiles for chosen word
@@ -84,15 +87,20 @@ const render = (array, validWordList) => {
   let randomNum = Math.floor(Math.random() * array.length);
   console.log(array.length);
 
-  round = 0; // round starts at 0 not 1
+  round = 0; // round starts at 0
   gameIsOver = false;
   playerWord = [];
   validWords = validWordList;
   category = array;
   winningWord = array[randomNum].toUpperCase().split(''); // splits word into letters into an array
+  categoryMessage.innerText = 'Select a Category';
+  gameoverMessage.innerText = '';
+  keyboardBtn.forEach(btn =>{
+    btn.style.backgroundColor = '#757575' // resets keyboard back to default
+  })
 
   generateTiles();
-  howToModal.style.display = 'block'
+  howToModal.style.display = 'block';
 
   //! remove in final product START
   titleEl.innerHTML = `Wordle: Categories For Testing: ${array[
@@ -172,74 +180,94 @@ const eval = (playerLetter, correctLetter) => {
   let numCorrect = 0;
 
   playerLetter.forEach((element, index) => {
-    if (element === correctLetter[index]) {
-      // (Green tile) letter exist and in right place
-      let greenTile = document.getElementById(`row-${round}-tile-${index}`);
-      greenTile.style.backgroundColor = '#498047';
+    setTimeout(() => {
 
-      let updateGreenBtn = document.querySelector(`.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`)
-      updateGreenBtn.style.backgroundColor = '#498047'
+      if (element === correctLetter[index]) {
+        // (Green tile) letter exists and is in the right place
+        let tileColor = '#498047';
+        let tile = document.getElementById(`row-${round}-tile-${index}`);
 
-      numCorrect = numCorrect + 1;
-    } else if (
-      correctLetter.includes(element) &&
-      element !== correctLetter[index]
-    ) {
-      // (Yellow tile) letter exist and in wrong place
-      let yellowTile = document.getElementById(`row-${round}-tile-${index}`);
-      yellowTile.style.backgroundColor = '#84732A';
+        updateTile(tile, tileColor, playerLetter, index);
+        numCorrect = numCorrect + 1;
+      } else if (
+        correctLetter.includes(element) &&
+        element !== correctLetter[index]
+      ) {
+        // (Yellow tile) letter exists and is in the wrong place
+        let tileColor = '#84732A';
+        let tile = document.getElementById(`row-${round}-tile-${index}`);
 
-      let updateYellowBtn = document.querySelector(`.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`)
-      updateYellowBtn.style.backgroundColor = '#84732A'
-    } else if (!correctLetter.includes(element)) {
-      // (Gray tile) letter does not exist anywhere
-      let grayTile = document.getElementById(`row-${round}-tile-${index}`);
-      grayTile.style.backgroundColor = '#727274';
+        updateTile(tile, tileColor, playerLetter, index);
+      } else if (!correctLetter.includes(element)) {
+        // (Gray tile) letter does not exist anywhere
+        let tileColor = '#3d3d3d';
+        let tile = document.getElementById(`row-${round}-tile-${index}`);
 
-      let updateGrayBtn = document.querySelector(`.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`)
-      updateGrayBtn.style.backgroundColor = '#3f3f3f'
-    }
+        updateTile(tile, tileColor, playerLetter, index);
+      }
+    }, index * 200); // delay each iteration by 200ms
   });
 
-  console.log(`round ${round} correct ${numCorrect}`);
-  checkForWinner(numCorrect);
+  setTimeout(() => {
+    console.log(`round ${round} correct ${numCorrect}`);
+    checkForWinner(numCorrect);
 
-  round = round + 1;
-  playerWord = [];
-  console.log(`--Test for round ${round}--`);
+    round = round + 1;
+    playerWord = [];
+    console.log(`--Test for round ${round}--`);
+  }, playerLetter.length * 200); // needs delay based on length of player letter, otherwise would colorize next row instead
+};
+
+const updateTile = (tile, tileColor, playerLetter, index) => {
+  setTimeout(() => {
+    tile.style.backgroundColor = tileColor;
+  }, 300);
+  tile.classList.add('flip-horizontal-top');
+
+  let updateKey = document.querySelector(
+    `.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`
+  );
+  updateKey.style.backgroundColor = tileColor;
 };
 
 const checkForWinner = (event) => {
-  if (event === winningWord.length && round < 6) {
-    console.log('Winner!');
-    gameIsOver = true;
-  } else if (gameIsOver === false && round === 5) {
-    console.log('loser!');
-    gameIsOver = true;
+  setTimeout(() => {
+    if (event === winningWord.length && round < 7) {
+      gameIsOver = true;
+      gameoverMessage.innerText = 'CONGRATULATIONS!';
+      categoryMessage.innerText = "Play again? Select a category."
+      categoriesModal.style.display = 'block';
+    } else if (gameIsOver === false && round === 6) {
+      gameIsOver = true;
+      gameoverMessage.innerText = "Oh no you lost!";
+      categoryMessage.innerText = "Play again? Select a category."
+      categoriesModal.style.display = 'block';
+    }
+  }, winningWord.length * 200);
+};
+
+const categoryOptions = (event) => {
+  if (event.target.id === 'wordle-category-btn') {
+    render(words, wordList);
+  } else if (event.target.id === 'colors-category-btn') {
+    render(colors, colors);
+  } else if (event.target.id === 'fruits-and-vegetables-category-btn') {
+    render(fruitsAndVegetables, fruitsAndVegetables);
+  } else {
+    return;
   }
 };
 
-const categoryTester = (event) =>{
-  if(event.target.id === 'wordle'){
-    render(words, wordList)
-  } else if(event.target.id === 'pokemon'){
-    render(pokemons, pokemons)
-  } else if(event.target.id === 'fruitsAndVegetables'){
-    render(fruitsAndVegetables, fruitsAndVegetables)
-  } else{
-    return
-  }
-}
-
-setTimeout(init, 800)
+init();
 
 /*----------------------------- Event Listeners -----------------------------*/
 document
   .querySelector('.keyboard-section')
   .addEventListener('click', inputHandler); // listens for on-screen keyboard button clicks
 document.addEventListener('keydown', inputHandler); // listens for keyboard keypress
-document.querySelector('.select-category-modal').addEventListener('click', categoryTester)
-
+document
+  .querySelector('.select-category-modal')
+  .addEventListener('click', categoryOptions);
 
 // modal listeners
 howToBtn.onclick = () => (howToModal.style.display = 'block');
