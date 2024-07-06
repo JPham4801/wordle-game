@@ -175,14 +175,21 @@ main {
   width: 100%;
 }
 
-.invalid-prompt {
-  display: none; /* todo set to block for display on-load  */
+.invalid-prompt-container {
   position: absolute;
-  align-self: center;
-  top: 120px;
-  border: 1px solid gray;
-  background-color: gray;
+  top: 70px; /* 70px from top of page */
+  left: 50%; /* moves left edge of element 50% from the left of the page */
+  transform: translateX(-50%); /* moves center of element to center of page */
+  z-index: 1;
+}
+
+.invalid-prompt {
+  opacity: 1;
+  transition: opacity 500ms;
+  border: 1px solid #757575;
+  background-color: #757575;
   border-radius: 12px;
+  margin: 12px 0;
   padding: 12px;
 }
 

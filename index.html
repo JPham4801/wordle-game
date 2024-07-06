@@ -27,6 +27,8 @@
       </div>
     </header>
     <main>
+      <div class="invalid-prompt-container">
+      </div>
       <!-- category modal -->
       <div class="select-category-modal" id="select-category-modal">
         <div class="modal-content">
@@ -88,7 +90,7 @@
           <h3 class="modal-sub-header">Guess the word in 6 tries</h3>
           <div class="how-to-section">
             <ul class="modal-base how-to-list">
-              <li>Each guess must be a valid 5-letter word</li>
+              <li>Each guess must be a valid word from each category</li>
               <li>
                 The color of the tiles will change to show how close your guess
                 was to the word.
@@ -100,6 +102,7 @@
                 <div
                   class="example-tile flip-horizontal-top"
                   style="background-color: #538d4e"
+                  alt="Green tile with the letter W at it's center"
                 >
                   W
                 </div>
@@ -116,6 +119,7 @@
                 <div
                   class="example-tile flip-horizontal-top"
                   style="background-color: #84732a"
+                  alt="Yellow tile with the letter I at it's center"
                 >
                   I
                 </div>
@@ -133,6 +137,7 @@
                 <div
                   class="example-tile flip-horizontal-top"
                   style="background-color: #58585a"
+                  alt="Gray tile with the letter U at it's center"
                 >
                   U
                 </div>
@@ -231,6 +236,5 @@
       </div>
     </div>
     <!-- on-screen keyboard end -->
-    <div class="invalid-prompt">Not a valid word!</div>
   </body>
 </html>
