@@ -2,6 +2,7 @@
 // refactor the '.toUpperCase' throughout code (possibly not needed after implmenting arrays)
 // (Yellow tiles) if letter is in the right place but does not exist anywhere else, make those tiles false (maybe forEach method)
 // refactor css (especially the modal section)
+// clicks in keyboard section error (length)
 
 /*-------------------------------- Constants --------------------------------*/
 
@@ -29,7 +30,6 @@ const howToModalEl = document.getElementById('how-to-modal');
 const closeHowToModalBtn = document.getElementById('close-how-to-modal');
 const closeCategoriesModalBtn = document.getElementById('close-categories-modal');
 
-const headerTitleEl = document.querySelector('.header'); //! remove in final product
 
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
@@ -40,20 +40,20 @@ const init = () => {
 const generateTiles = () => {
   // clears default board and dynamically generate new tiles for chosen word
   boardArea.innerHTML = '';
-
+  
   // for loop to generate 6 rows (tries in game) with n numbers of tiles equal to the letters in winning word
   for (let i = 0; i < 6; i++) {
     let newBoardRow = document.createElement('div');
     newBoardRow.className = 'board-container';
     newBoardRow.id = `row-${[i]}`;
-
-    targetWord.forEach((element, index) => {
+    
+    targetWord.forEach((_, index) => {
       let newBoardContainer = document.createElement('div');
       newBoardContainer.className = 'letter-tile';
       newBoardContainer.id = `row-${[i]}-tile-${index}`;
       newBoardRow.appendChild(newBoardContainer);
     });
-
+    
     boardArea.appendChild(newBoardRow);
   }
 };
@@ -62,41 +62,40 @@ const render = (wordsArray, validWordList) => {
   selectCategoryModal.style.display = 'none';
   let randomizer = Math.floor(Math.random() * wordsArray.length);
   console.log(wordsArray.length);
-
+  
   currentRound = 0; // round starts at 0
   isGameOver = false;
   guessedWord = [];
   validWordsList = validWordList;
   selectedCategory = wordsArray;
-  targetWord = wordsArray[randomizer].toUpperCase().split(''); // splits word into letters into an array
+  targetWord = wordsArray[randomizer].split(''); // splits word into letters into an array
   categoryMessageEl.innerText = 'Select a Category';
   gameOverMessage.innerText = '';
-
+  
   keyboardButtons.forEach((button) => {
     button.style.backgroundColor = '#757575'; // resets keyboard back to default
   });
-
+  
   howToModalEl.style.display = 'block';
   generateTiles();
-
+  
   //! remove in final product START
-  headerTitleEl.innerHTML = `Wordle: Categories For Testing: ${wordsArray[
-    randomizer
-  ].toUpperCase()}`;
+  const headerTitleEl = document.querySelector('.header');
+  headerTitleEl.innerHTML = `Wordle: Categories For Testing: ${wordsArray[randomizer]}`;
   //! remove in final product END
 };
 
 const inputHandler = (event) => {
   // prevents default button highlighting (focus)
-  if (event.target.className === 'keyboard-btn') {
+  if (event.target.classList.contains('keyboard-btn')) {
     event.target.blur();
   }
 
   // handling of both keyboard inputs and on-screen keyboard clicks
   if (
     isGameOver === true ||
-    event.target.className === 'keyboard-section' ||
-    event.target.className === 'keyboard-row' ||
+    event.target.classList.contains('keyboard-section') ||
+    event.target.classList.contains('keyboard-row') ||
     !selectedCategory
   ) {
     return;
@@ -107,11 +106,11 @@ const inputHandler = (event) => {
     isValidWord(guessedWord, targetWord);
   } else if (
     // on-screen keyboard clicks
-    event.target.className === 'keyboard-btn' &&
+    event.target.classList.contains('keyboard-btn') &&
     guessedWord.length < targetWord.length
   ) {
-    guessedWord.push(event.target.innerText); // onscreen keyboard clicks
-    let input = event.target.innerText;
+    guessedWord.push(event.target.innerText.toUpperCase()); // onscreen keyboard clicks
+    let input = event.target.innerText.toUpperCase();
     let idx = guessedWord.length - 1;
     updateTiles(input, idx);
   } else if (
@@ -121,7 +120,7 @@ const inputHandler = (event) => {
     event.key.match(/[a-zA-Z]/) // only letters A-Z are used, uppercase and lowercase
   ) {
     guessedWord.push(event.key.toUpperCase());
-    let input = event.key;
+    let input = event.key.toUpperCase();
     let idx = guessedWord.length - 1;
     updateTiles(input, idx);
   }
@@ -153,13 +152,13 @@ const isValidWord = () => {
     showInvalidPrompt(prompt);
     return;
   } else if (validWordsList.includes(guessedWord.join(''))) {
-    eval(guessedWord, targetWord);
+    evaluateWord(guessedWord, targetWord);
   }
 };
 
 const showInvalidPrompt = (prompt) => {
   const invalidPrompt = document.createElement('div');
-  invalidPrompt.className = 'invalid-prompt';
+  invalidPrompt.classList.add('invalid-prompt');
   invalidPrompt.innerText = prompt;
   invalidPromptContainerEl.appendChild(invalidPrompt);
 
@@ -172,12 +171,12 @@ const showInvalidPrompt = (prompt) => {
   }, 1000);
 };
 
-const eval = (guessedLetters, targetWordLetters) => {
+const evaluateWord = (guessedLetters, targetWordLetters) => {
   let correctLetterCount = 0;
 
-  guessedLetters.forEach((letter, index) => {
+  guessedLetters.forEach((guessedLetter, index) => {
     setTimeout(() => {
-      if (letter === targetWordLetters[index]) {
+      if (guessedLetter === targetWordLetters[index]) {
         // (Green tile) letter exists and is in the right place
         let tileBackgroundColor = '#498047';
         let tileEl = document.getElementById(`row-${currentRound}-tile-${index}`);
@@ -190,8 +189,8 @@ const eval = (guessedLetters, targetWordLetters) => {
         );
         correctLetterCount = correctLetterCount + 1;
       } else if (
-        targetWordLetters.includes(letter) &&
-        letter !== targetWordLetters[index]
+        targetWordLetters.includes(guessedLetter) &&
+        guessedLetter !== targetWordLetters[index]
       ) {
         // (Yellow tile) letter exists and is in the wrong place
         let tileBackgroundColor = '#84732A';
@@ -203,7 +202,7 @@ const eval = (guessedLetters, targetWordLetters) => {
           guessedLetters,
           index
         );
-      } else if (!targetWordLetters.includes(letter)) {
+      } else if (!targetWordLetters.includes(guessedLetter)) {
         // (Gray tile) letter does not exist anywhere
         let tileBackgroundColor = '#3d3d3d';
         let tileEl = document.getElementById(`row-${currentRound}-tile-${index}`);

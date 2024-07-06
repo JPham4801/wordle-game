@@ -200,7 +200,7 @@ main {
 
 .invalid-prompt-container {
   position: absolute;
-  top: 70px; /* 70px from top of page */
+  top: 67px; /* 70px from top of page */
   left: 50%; /* moves left edge of element 50% from the left of the page */
   transform: translateX(-50%); /* moves center of element to center of page */
   z-index: 1;
@@ -254,7 +254,7 @@ main {
   height: 62px;
   width: 46px;
   margin: 2px 0;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .keyboard-btn:focus {
@@ -263,11 +263,11 @@ main {
 }
 
 #backspace-btn {
-  width: 76px;
+  width: 84px;
 }
 
 #enter-btn {
-  width: 88px;
+  width: 94px;
 }
 
 /* animations */
