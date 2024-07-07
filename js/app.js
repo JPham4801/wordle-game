@@ -1,17 +1,7 @@
-//! ---------- STRETCH GOALS ----------
-// refactor the '.toUpperCase' throughout code (possibly not needed after implmenting arrays)
-// (Yellow tiles) if letter is in the right place but does not exist anywhere else, make those tiles false (maybe forEach method)
-// refactor css (especially the modal section)
-// refactor js codes. simplier functions and easier to read
-// clicks in keyboard section error (length)
-
-//todo
-// 2. Constants for Magic Strings/Numbers
-// Define constants for magic strings and numbers: This helps in maintaining the code and makes it more readable
-// fix font in winner message title
-
 /*-------------------------------- Constants --------------------------------*/
 const numOfGuesses = 6;
+const singleCharacterLength = 1;
+const letterRegex = /[a-zA-Z]/; // only letters A-Z are used, uppercase and lowercase
 
 /*---------------------------- Variables (state) ----------------------------*/
 let currentRound;
@@ -29,7 +19,8 @@ const keyboardButtons = document.querySelectorAll('.keyboard-btn');
 const invalidPromptContainerEl = document.querySelector(
   '.invalid-prompt-container'
 );
-// modal element references
+
+// modal element references below
 const howToBtn = document.getElementById('info-icon');
 const selectCategoryButton = document.getElementById('select-category-btn');
 const categorySelectionModal = document.getElementById(
@@ -43,16 +34,18 @@ const closeCategoriesModalBtn = document.getElementById(
 
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
-  categorySelectionModal.style.display = 'none';
-  howToModalEl.style.display = 'block';
+  // adds slight delay for modal after page loads for fluidity
+  setTimeout(() => {
+    categorySelectionModal.style.display = 'block';
+    howToModalEl.style.display = 'none';
+  }, 800);
 };
 
+// clears default board and dynamically generate new tiles for word within chosen category
 const generateTiles = () => {
-  // clears default board and dynamically generate new tiles for chosen word
   boardArea.innerHTML = '';
 
-  // for loop to generate 6 rows (tries in game) with n numbers of tiles equal to the letters in winning word
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < numOfGuesses; i++) {
     const newBoardRow = document.createElement('div');
     newBoardRow.className = 'board-container';
     newBoardRow.id = `row-${[i]}`;
@@ -72,27 +65,24 @@ const render = (wordsArray, validWordList) => {
   categorySelectionModal.style.display = 'none';
   let randomizer = Math.floor(Math.random() * wordsArray.length);
 
-  currentRound = 0; // round starts at 0
+  // reset game
+  currentRound = 0;
   isGameOver = false;
   guessedWord = [];
   validWordsList = validWordList;
   selectedCategory = wordsArray;
-  targetWord = wordsArray[randomizer].split(''); // splits word into letters into an array
+  targetWord = wordsArray[randomizer].split(''); // splits word into letters for word evaluation
   categoryMessageEl.innerText = 'Select a Category';
   gameOverMessage.innerText = '';
-  console.log(targetWord);
 
   keyboardButtons.forEach((button) => {
-    button.style.backgroundColor = '#757575'; // resets keyboard back to default
+    button.style.backgroundColor = '#757575'; // resets keyboard back to default colors
   });
 
-  howToModalEl.style.display = 'block';
+  setTimeout(() => {
+    howToModalEl.style.display = 'block'; // prompts game instructions
+  }, 500);
   generateTiles();
-
-  //! remove in final product START and remove .header from html <h1> class
-  const headerTitleEl = document.querySelector('.header');
-  headerTitleEl.innerHTML = `Wordle: Categories For Testing: ${wordsArray[randomizer]}`;
-  //! remove in final product END
 };
 
 const inputHandler = (event) => {
@@ -112,7 +102,7 @@ const inputHandler = (event) => {
   } else if (event.target.id === 'backspace-btn' || event.key === 'Backspace') {
     backspaceHandler();
   } else if (event.target.id === 'enter-btn' || event.key === 'Enter') {
-    event.preventDefault(); // prevents default submission (focus)
+    event.preventDefault();
     isValidWord(guessedWord, targetWord);
   } else if (
     // on-screen keyboard clicks
@@ -121,17 +111,17 @@ const inputHandler = (event) => {
   ) {
     guessedWord.push(event.target.innerText.toUpperCase()); // onscreen keyboard clicks
     let input = event.target.innerText.toUpperCase();
-    let idx = guessedWord.length - 1;
+    let idx = guessedWord.length - 1; // -1 for index number
     updateTiles(input, idx);
   } else if (
     // keyboard keypress
     guessedWord.length < targetWord.length && // prevents going over word limit
-    event.key.length === 1 && // only 1 letter keyboard inputs (prevents 'Enter', 'Backspace', etc.)
-    event.key.match(/[a-zA-Z]/) // only letters A-Z are used, uppercase and lowercase
+    event.key.length === singleCharacterLength && // only 1 letter keyboard inputs (prevents 'Enter', 'Backspace', etc.)
+    event.key.match(letterRegex)
   ) {
     guessedWord.push(event.key.toUpperCase());
     let input = event.key.toUpperCase();
-    let idx = guessedWord.length - 1;
+    let idx = guessedWord.length - 1; // -1 for index number
     updateTiles(input, idx);
   }
 };
@@ -144,7 +134,8 @@ const backspaceHandler = () => {
 };
 
 const updateTiles = (input, idx) => {
-  if (guessedWord.length <= targetWord.length && isGameOver === false) {
+  // only updates tile if the game is not over and still have space for new letter
+  if (!isGameOver && guessedWord.length <= targetWord.length) {
     let rowEl = document.querySelector(`#row-${currentRound}`); // row selector
     rowEl.querySelector(`#row-${currentRound}-tile-${idx}`).innerText =
       input.toUpperCase(); // display in current tile
@@ -153,11 +144,12 @@ const updateTiles = (input, idx) => {
 
 const isValidWord = () => {
   if (guessedWord.length !== targetWord.length) {
-    // prevents submission if word isn't filled
+    // notifies if word isn't filled
     let prompt = 'Not enough letters!';
     showInvalidPrompt(prompt);
     return;
   } else if (!validWordsList.includes(guessedWord.join(''))) {
+    // notifies if word is invalid
     let prompt = 'Not a valid word!';
     showInvalidPrompt(prompt);
     return;
@@ -167,22 +159,24 @@ const isValidWord = () => {
 };
 
 const showInvalidPrompt = (prompt) => {
+  // generates invalid prompt
   const invalidPrompt = document.createElement('div');
   invalidPrompt.classList.add('invalid-prompt');
   invalidPrompt.innerText = prompt;
   invalidPromptContainerEl.appendChild(invalidPrompt);
 
+  // removes prompt after 500ms with fading effect
   setTimeout(() => {
     invalidPrompt.style.opacity = '0';
 
     setTimeout(() => {
       invalidPromptContainerEl.removeChild(invalidPrompt);
-    }, 200);
-  }, 1000);
+    }, 500);
+  }, 500);
 };
 
 const evaluateWord = (guessedLetters, targetWordLetters) => {
-  let correctLetterCount = 0;
+  let correctLetterCount = 0; // winner if all letters match winning letters
 
   guessedLetters.forEach((guessedLetter, index) => {
     setTimeout(() => {
@@ -194,11 +188,12 @@ const evaluateWord = (guessedLetters, targetWordLetters) => {
         );
 
         updateTileAppearance(
-          tileEl,
-          tileBackgroundColor,
-          guessedLetters,
-          index
+          tileEl, // which tile to update
+          tileBackgroundColor, // what color to update to (Green, Yellow, Gray)
+          guessedLetters, // players letter choice for specific tile
+          index // position of letter to match with tile
         );
+
         correctLetterCount = correctLetterCount + 1;
       } else if (
         targetWordLetters.includes(guessedLetter) &&
@@ -234,21 +229,21 @@ const evaluateWord = (guessedLetters, targetWordLetters) => {
   });
 
   setTimeout(() => {
-    console.log(`round ${currentRound} correct ${correctLetterCount}`);
+    // checks after animation is complete
     checkForWinner(correctLetterCount);
 
     currentRound = currentRound + 1;
-    guessedWord = [];
-    console.log(`--Test for round ${currentRound}--`);
-  }, guessedLetters.length * 200); // needs delay based on length of player letter, otherwise it would colorize next row instead
+    guessedWord = []; // resets players guess
+  }, guessedLetters.length * 200); // needs same delay as animation otherwise it would not sync with updateTileAppearance
 };
 
 const updateTileAppearance = (tile, tileColor, playerLetter, index) => {
   setTimeout(() => {
     tile.style.backgroundColor = tileColor;
   }, 300);
-  tile.classList.add('flip-horizontal-top');
+  tile.classList.add('flip-horizontal-top'); // add animation for each updated tile
 
+  // updates color of on-screen keyboard
   let updateKey = document.querySelector(
     `.keyboard-btn[key="${playerLetter[index].toLowerCase()}"]`
   );
@@ -258,11 +253,12 @@ const updateTileAppearance = (tile, tileColor, playerLetter, index) => {
 const checkForWinner = (event) => {
   setTimeout(() => {
     if (event === targetWord.length && currentRound < 7) {
-      isGameOver = true;
+      // 7 rather than 6 because of unexpected results with evaluation timers
+      isGameOver = true; // setting to true prevents further key inputs
       gameOverMessage.innerText = 'You guessed correct!';
       categoryMessageEl.innerText = 'Play again? Select a category.';
-      categorySelectionModal.style.display = 'block';
-    } else if (isGameOver === false && currentRound === 6) {
+      categorySelectionModal.style.display = 'block'; // display game over prompt
+    } else if (isGameOver === false && currentRound === numOfGuesses) {
       isGameOver = true;
       gameOverMessage.innerText = `You lost! The word was ${targetWord.join(
         ''
@@ -270,9 +266,10 @@ const checkForWinner = (event) => {
       categoryMessageEl.innerText = 'Play again? Select a category.';
       categorySelectionModal.style.display = 'block';
     }
-  }, targetWord.length * 200);
+  }, targetWord.length * 200); // delay for smooth game flow
 };
 
+// get array for chosen category and starts the game
 const categoryOptions = (event) => {
   if (event.target.id === 'wordle-category-btn') {
     render(words, wordList);
@@ -285,6 +282,7 @@ const categoryOptions = (event) => {
   }
 };
 
+// runs after page load
 init();
 
 /*----------------------------- Event Listeners -----------------------------*/

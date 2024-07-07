@@ -10,7 +10,6 @@ const colors = [
   'BLACK',
   'WHITE',
   'GRAY',
-  'NAVY',
   'GOLD',
   'SILVER',
 ];

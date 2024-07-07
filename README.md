@@ -23,8 +23,7 @@ I selected this game because, despite its simple appearance, it presents nuances
 
 ### Challenges:
 
-- Implementing the `inputHandler()` function to handle both keyboard key presses and on-screen keyboard clicks
-- Dynamically generating tiles based on the chosen category and word length.
+- Each tile's `id` had to be dynamically created to uniquely identify its row and position within that row. This required careful handling of the IDs to ensure they matched the structure needed for the game's functionality.
 - Applying animations sequentially without affecting the variables unexpectedly (e.g., round & row numbers changing before the animation completes).
 - Applying color to the tile only after the tile is halfway through its animation for a seamless appearance.
 - Naming variables effectively (an art form in itself).
@@ -82,5 +81,3 @@ Ready to play [Wordle: Categories](https://jpham4801.github.io/wordle-game/) or 
 1. Implement a game mechanic to prevent yellow tiles from appearing if all instances of the indicated letter is already correctly placed in the word.
 
 2. Refactor the code to improve maintainability by reducing the number of if statements, making conditions more concise, and enhancing the readability of code structures.
-
-![GitHub last commit](https://img.shields.io/github/last-commit/JPham4801/wordle-game?link=https%3A%2F%2Fgithub.com%2FJPham4801%2Fwordle-game)
