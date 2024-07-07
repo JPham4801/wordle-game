@@ -13,13 +13,13 @@ Play [Wordle: Categories](https://jpham4801.github.io/wordle-game/)!
 
 ## About the Project
 
-<div align="center"><img alt="Wordle category gameplay interface with a 5x6 grid and on screen keyboard. The player guesses the word by typing letters and the game highlights the correct, misplaced, and invalid letters in each position." src="./resources/wordle_gameplay.gif"></div>
+<div align="center"><img alt="Wordle category gameplay showing a 5x6 grid and on screen keyboard. The player guesses the word by typing letters and the game highlights the correct, misplaced, and invalid letters in each position." src="./resources/wordle_gameplay.gif"></div>
 
 This project aims to demonstrate my current understanding of *HTML*, *CSS*, and *JavaScript* by building a functional game. I chose to recreate the popular web-based word game, ***[Wordle](https://www.nytimes.com/games/wordle/index.html)***, with a twist: allowing players to select different word categories.
 
 While the original Wordle game uses only 5-letter words, I designed my version to dynamically generate tiles based on the length of the hidden word, which can vary across different categories. The original game's playable words and valid words were sourced and reconstructed into arrays found in [words.js](https://github.com/JPham4801/wordle-game/blob/main/js/words.js) and [wordlist.js](https://github.com/JPham4801/wordle-game/blob/main/js/wordlist.js). I added categories such as [Colors](https://github.com/JPham4801/wordle-game/blob/main/js/colors.js) and [Fruits & Vegetables](https://github.com/JPham4801/wordle-game/blob/main/js/fruitsAndVegetables.js) to demonstrate the concept.
 
-I selected this game because, despite its simple appearance, it presents complex nuances and edge cases that are beneficial for developing my current skill set.
+I selected this game because, despite its simple appearance, it presents nuances and edge cases that are beneficial for developing my current skill set.
 
 ### Challenges:
 
@@ -71,10 +71,16 @@ Ready to play [Wordle: Categories](https://jpham4801.github.io/wordle-game/) or 
 
 ## Technologies Used
 
-*Wordle: Categories* is built using `HTML` `CSS` and `JavaScript`.
+![Static Badge](https://img.shields.io/badge/JAVASCRIPT-yellow?style=for-the-badge&logo=javascript&logoColor=white&labelColor=black)
+![Static Badge](https://img.shields.io/badge/HTML-green?style=for-the-badge&logo=HTML5&logoColor=white&labelColor=black)
+![Static Badge](https://img.shields.io/badge/CSS-blue?style=for-the-badge&logo=CSS3&logoColor=white&labelColor=black)
+
+
 
 ## Next Steps
 
 1. Implement a game mechanic to prevent yellow tiles from appearing if all instances of the indicated letter is already correctly placed in the word.
 
 2. Refactor the code to improve maintainability by reducing the number of if statements, making conditions more concise, and enhancing the readability of code structures.
+
+![GitHub last commit](https://img.shields.io/github/last-commit/JPham4801/wordle-game?link=https%3A%2F%2Fgithub.com%2FJPham4801%2Fwordle-game)

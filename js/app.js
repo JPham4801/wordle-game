@@ -8,6 +8,7 @@
 //todo
 // 2. Constants for Magic Strings/Numbers
 // Define constants for magic strings and numbers: This helps in maintaining the code and makes it more readable
+// fix font in winner message title
 
 /*-------------------------------- Constants --------------------------------*/
 const numOfGuesses = 6;
