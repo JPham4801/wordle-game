@@ -3,17 +3,17 @@
 
 <center>
 
-![a picture of the landing page for the 'wordle: categories' game](./resources/github-header-image.png)
+![a green background banner with "Wordle: Catories" in white font to the left and white github logo to the right](./resources/github-header-image.png)
 
 Software Engineering Bootcamp (June 2024)<br>
 Project Assignment 1 - [General Assembly](https://generalassemb.ly/)<br>
-Play [Wordle: Categories](https://jpham4801.github.io/wordle-game/) now!
+Play [Wordle: Categories](https://jpham4801.github.io/wordle-game/)!
 
 </center>
 
 ## About the Project
 
-<center><img src="./resources/wordle_gameplay.gif"></center>
+<center><img alt="Wordle category gameplay inerface with a 5x6 grid and on screen keyboard. The player guessing the word by typing letters and the game highlights the correct, misplaced, and invalid letters in each position." src="./resources/wordle_gameplay.gif"></center>
 
 The goal of this project was to utilize our current understanding of *HTML*, *CSS*, and *JavaScript* to build a functional game of our choosing. My choice was to recreate the popular web-based word game, **[Wordle](https://www.nytimes.com/games/wordle/index.html)**. I wanted to add a slight variation that differs from the original game which includes the option to select a different category. 
 
