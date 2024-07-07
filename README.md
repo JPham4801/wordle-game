@@ -3,7 +3,7 @@
 
 <center>
 
-![a green background banner with "Wordle: Catories" in white font to the left and white github logo to the right](./resources/github-header-image.png)
+![a green background banner with "Wordle: Categories" in white font to the left and white github logo to the right](./resources/github-header-image.png)
 
 Software Engineering Bootcamp (June 2024)<br>
 Project Assignment 1 - [General Assembly](https://generalassemb.ly/)<br>
@@ -13,28 +13,28 @@ Play [Wordle: Categories](https://jpham4801.github.io/wordle-game/)!
 
 ## About the Project
 
-<center><img alt="Wordle category gameplay inerface with a 5x6 grid and on screen keyboard. The player guessing the word by typing letters and the game highlights the correct, misplaced, and invalid letters in each position." src="./resources/wordle_gameplay.gif"></center>
+<center><img alt="Wordle category gameplay interface with a 5x6 grid and on screen keyboard. The player guesses the word by typing letters and the game highlights the correct, misplaced, and invalid letters in each position." src="./resources/wordle_gameplay.gif"></center>
 
-The goal of this project was to utilize our current understanding of *HTML*, *CSS*, and *JavaScript* to build a functional game of our choosing. My choice was to recreate the popular web-based word game, **[Wordle](https://www.nytimes.com/games/wordle/index.html)**. I wanted to add a slight variation that differs from the original game which includes the option to select a different category. 
+This project aims to demonstrate my current understanding of *HTML*, *CSS*, and *JavaScript* by building a functional game. I chose to recreate the popular web-based word game, **[Wordle](https://www.nytimes.com/games/wordle/index.html)**, with a twist: allowing players to select different word categories.
 
-The original Wordle game only uses 5-letter words. I designed the tiles to be dynamically generate based on the number of letters in the hidden word since the words in other categories are more or less than 5. The original game's [word choices](https://github.com/JPham4801/wordle-game/blob/main/js/words.js) and [valid words](https://github.com/JPham4801/wordle-game/blob/main/js/wordlist.js) were sourced from the Wordle game itself and reconstructed into a simple array of words. The categories I chose to add are common [Colors](https://github.com/JPham4801/wordle-game/blob/main/js/colors.js) and [Fruits & Vegetables](https://github.com/JPham4801/wordle-game/blob/main/js/fruitsAndVegetables.js) for proof of concept.
+While the original Wordle game uses only 5-letter words, I designed my version to dynamically generate tiles based on the length of the hidden word, which can vary across different categories. The original game's [word choices](https://github.com/JPham4801/wordle-game/blob/main/js/words.js) and [valid words](https://github.com/JPham4801/wordle-game/blob/main/js/wordlist.js) were sourced and reconstructed into simple arrays. I added categories such as [Colors](https://github.com/JPham4801/wordle-game/blob/main/js/colors.js) and [Fruits & Vegetables](https://github.com/JPham4801/wordle-game/blob/main/js/fruitsAndVegetables.js) to demonstrate the concept.
 
-I chose this game because it seemed like one of those games that look simple at first glance but it has alot of nuances and edge cases that would further sharpen my trade.
+I selected this game because it appears simple but has complex nuances and edge cases, which are beneficial for learning.
 
-Some of the challanges I faced were:
+### Challenges:
 
-- Using a single function `inputHandler()` to accept both keyboard keypress and on-screen keyboard clicks
-- Dynaically generating the tiles based on the category chosen and the length of the word.
-- Applying animation in succession without the code doing weird things to the variables. (round & row numbers would change before the animation finishes)
-- Applying color to the tile *only* after the tile is halfway through its animation so it appears seemless.
-- Naming variables (This is an *art*)
+- Implementing the `inputHandler()` function to handle both keyboard key presses and on-screen keyboard clicks
+- Dynamically generating tiles based on the chosen category and word length.
+- Applying animations sequentially without affecting the variables unexpectedly (e.g., round & row numbers changing before the animation completes).
+- Applying color to the tile only after the tile is halfway through its animation for a seamless appearance.
+- Naming variables effectively (an art form in itself).
 
 ## Getting Started
-The premise of *Wordle* is simple. In order to win, you must:
+The premise of the original ***Wordle*** is simple. To win, you must:
 - Guess the hidden word in 6 tries or less.
 - Each guess must be a valid 5-letter word.
 
-The color of the tiles will change colors that will indicate how close your guess was to the hidden word.
+The color of the tiles change to indicate how close your guess was to the hidden word.
 
 <center>
 <img alt="a row of wordle tiles showing the word 'WORDS'. The letter 'W' tile in the word is highlighted green" src="./resources/green-tile-example.png">
@@ -50,9 +50,15 @@ The color of the tiles will change colors that will indicate how close your gues
 *Gray* tiles means the letter ***is not*** in ***any*** of the positions in the word.
 </center>
 
+### Wordle: Categories variation
+
+- Allows selection of categories with words of varying lengths.
+
+Ready to play [Wordle: Categories](https://jpham4801.github.io/wordle-game/) or the original [Wordle](https://www.nytimes.com/games/wordle/index.html)?
+
 ## Attributions
 
-- Game mechanics and designs were used from the official Wordle as reference for Wordle: Categories.
+- Game mechanics and designs were inspired by the official Wordle.
     * https://www.nytimes.com/games/wordle/index.html
 - Wordle Wiki
     * https://en.wikipedia.org/wiki/Wordle
@@ -63,4 +69,4 @@ The color of the tiles will change colors that will indicate how close your gues
 
 ## Technologies used
 
-Web based game is made with `HTML` `CSS` and `JavaScript`.
+*Wordle: Categories* web-based game is made with `HTML` `CSS` and `JavaScript`.
