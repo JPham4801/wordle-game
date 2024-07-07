@@ -10,6 +10,7 @@
 // Define constants for magic strings and numbers: This helps in maintaining the code and makes it more readable
 
 /*-------------------------------- Constants --------------------------------*/
+const numOfGuesses = 6;
 
 /*---------------------------- Variables (state) ----------------------------*/
 let currentRound;
