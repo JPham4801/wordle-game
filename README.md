@@ -1,7 +1,7 @@
 
 # Wordle: Categories
 
-<div style="text-align: center;">
+<div align="center">
 
 ![a green background banner with "Wordle: Categories" in white font to the left and white github logo to the right](./resources/github-header-image.png)
 
@@ -13,7 +13,7 @@ Play [Wordle: Categories](https://jpham4801.github.io/wordle-game/)!
 
 ## About the Project
 
-<div style="text-align: center;"><img alt="Wordle category gameplay interface with a 5x6 grid and on screen keyboard. The player guesses the word by typing letters and the game highlights the correct, misplaced, and invalid letters in each position." src="./resources/wordle_gameplay.gif"></div>
+<div align="center"><img alt="Wordle category gameplay interface with a 5x6 grid and on screen keyboard. The player guesses the word by typing letters and the game highlights the correct, misplaced, and invalid letters in each position." src="./resources/wordle_gameplay.gif"></div>
 
 This project aims to demonstrate my current understanding of *HTML*, *CSS*, and *JavaScript* by building a functional game. I chose to recreate the popular web-based word game, ***[Wordle](https://www.nytimes.com/games/wordle/index.html)***, with a twist: allowing players to select different word categories.
 
@@ -36,7 +36,7 @@ The premise of the original ***Wordle*** is simple. To win, you must:
 
 The color of the tiles change to indicate how close your guess was to the hidden word.
 
-<div style="text-align: center;">
+<div align="center">
 <img alt="a row of wordle tiles showing the word 'WORDS'. The letter 'W' tile in the word is highlighted green" src="./resources/green-tile-example.png">
 
 *Green* tiles means the letter ***is*** in the word and ***is*** in the correct position.
