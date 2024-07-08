@@ -80,4 +80,6 @@ Ready to play [Wordle: Categories](https://jpham4801.github.io/wordle-game/) or 
 
 1. Implement a game mechanic to prevent yellow tiles from appearing if all instances of the indicated letter is already correctly placed in the word.
 
-2. Refactor the code to improve maintainability by reducing the number of if statements, making conditions more concise, and enhancing the readability of code structures.
+2. Refactor the code to enhance maintainability by reducing the number of if statements. Make the conditions more concise and improve the code structure to increase readability.
+
+3. Apply media queries for access on smaller devices
